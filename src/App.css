@@ -1,9 +1,10 @@
 .App {
   font-size: normal;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  /* align-items: center;  */
+ /* justify-content: center; */
+  width: 100%;
 }
 html {
   background-color: #282c34;
@@ -22,55 +23,57 @@ a {
 }
 .posterCon {
   height: 20vmin;
-  /* max-width: 120px; */
+  width: 100%;
   overflow: hidden;
   display: flex;
   justify-content: center;
   border-radius: 5%;
 }
 .contentImg {
-  height: 80vmin;
+  height: 35vmin;
   margin: 3%;
 }
 .content {
   text-align: left;
   margin: 30px;
   padding: 10px;
+  max-width: 500px;
 }
 .movieCon {
   margin: 2%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-wrap: wrap;  */
+  width: 100%
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1000px) {
   .movieCon {
     flex-direction: column;
+    justify-content: center; 
+    align-items: center;
   }
+  .contentImg {
+    height: 70vmin;
+  }
+  .container {
+      display: none;
+      }
 }
 .name {
-  /* position: relative; */
   margin-bottom: 0;
   text-align: center;
   text-transform: uppercase;
-  /* margin-top: 40vh; */
-  /* background-image: linear-gradient(to top, black,  transparent); */
 }
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+
 
 .App-header {
   background-color: #282c34;
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
-  /* justify-content: center; */
-  font-size: calc(10px + 2vmin);
   color: white;
   overflow-x: auto;
+  /* width: 100%; */
 }
 
 .movieList {
@@ -79,6 +82,8 @@ a {
   flex-direction: column;
   color: white;
   margin: 1%;
+  /* justify-content: center; */
+  width: 120px;
   text-align: left;
 }
 
@@ -87,14 +92,6 @@ a {
   text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 /* scroll bar */
 
@@ -117,4 +114,17 @@ a {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+.container {
+  position: relative;
+  width: 60%;
+  height: auto;
+  padding-bottom: 56.25%;
+}
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
 }
