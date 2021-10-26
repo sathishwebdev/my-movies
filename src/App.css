@@ -128,3 +128,26 @@ a {
   width: 100%;
   height: 70%;
 }
+form{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  height: 100vh;
+  width: 100%;
+}
+
+.TextField{
+  border-color:antiquewhite;
+  margin: 1%;
+  width: 70%;
+}
+
+.btn{
+width: fit-content;
+background-color:#61dafb;
+border:none;
+border-radius: 5px;
+
+}
+

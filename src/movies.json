@@ -7,7 +7,8 @@
     "genre": ["Historical fiction", "Crime", "drama"],
     "releaseDate" :" 12 september 2013",
     "watchOn": {"link":"https://www.netflix.com/in/title/80002479?source=35", "name":"Netflix"},
-    "trailer":"https://www.youtube.com/embed/oVzVdvGIC7U"
+    "trailer":"https://www.youtube.com/embed/oVzVdvGIC7U",
+    "counts": {"likes":0, "disLikes": 0}
 },
 {
     "id": "2",
@@ -18,7 +19,8 @@
  "genre":["Drama"],
 "releaseDate" :"15 December 2006",
 "watchOn": {"link":"https://www.netflix.com/in/title/70044605?source=35","name":"Netflix"},
-"trailer":"https://youtube.com/embed/DMOBlEcRuw8"
+"trailer":"https://youtube.com/embed/DMOBlEcRuw8",
+"counts": {"likes":0, "disLikes": 0}
 },
 {
     "id": "3",
@@ -29,7 +31,8 @@
  "genre":["Comedy", "Drama", "Dark Comedy", "Crime Fiction"],
 "releaseDate" :"3 January 2014",
 "watchOn": {"link": "https://www.amazon.com/Wolf-Wall-Street-Leonardo-DiCaprio/dp/B00IIU9U00", "name":"Prime Video"},
-"trailer":"https://youtube.com/embed/iszwuX1AK6A"
+"trailer":"https://youtube.com/embed/iszwuX1AK6A",
+"counts": {"likes":0, "disLikes": 0}
 },
 {
     "id": "4",
@@ -40,7 +43,8 @@
  "genre":["Comedy-drama", "Sex comedy","Teen drama"],
 "releaseDate" :"11 January 2019",
 "watchOn":{"link": "https://www.netflix.com/in/title/80197526?source=35", "name": "Netflix"},
-"trailer":"https://youtube.com/embed/zmgYlYw7Uwk"
+"trailer":"https://youtube.com/embed/zmgYlYw7Uwk",
+    "counts": {"likes":0, "disLikes": 0}
 },
 {
     "id": "5",
@@ -51,7 +55,8 @@
  "genre":["Action", "Super hero","War","Science Fiction", "Adventure", "Thriller"],
 "releaseDate" :"1 May 2008",
 "watchOn":{ "name":"HotStar", "link" : "https://www.hotstar.com/in/movies/iron-man/1660000038/watch?utm_source=gwa"},
-"trailer":"https://youtube.com/embed/8ugaeA-nMTc"
+"trailer":"https://youtube.com/embed/8ugaeA-nMTc",
+    "counts": {"likes":0, "disLikes": 0}
 },
 {
     "id": "6",
@@ -61,7 +66,8 @@
 "summary":"Nick Fury is compelled to launch the Avengers Initiative when Loki poses a threat to planet Earth. His squad of superheroes put their minds together to accomplish the task.",
  "genre":["Action","Super hero","Adventure","Science Fiction","Fantasy"],
 "releaseDate" :"27 April 2012 ","watchOn":{"link":"https://www.hotstar.com/in/movies/marvels-the-avengers/1660000015/watch?utm_source=gwa","name":"HotStar"},
-"trailer":"https://youtube.com/embed/eOrNdBpGMv8"
+"trailer":"https://youtube.com/embed/eOrNdBpGMv8",
+    "counts": {"likes":0, "disLikes": 0}
 },
 {
     "id": "7",
@@ -72,7 +78,8 @@
  "genre":["Action", "Super hero","Adventure","Fantasy","Science Fiction","Mystery"],
 "releaseDate" :" 24 May 2002",
 "watchOn":{"link":"http://www.youtube.com/watch?v=XhbJwZFgeVA", "name":"YouTube"},
-"trailer":"https://youtube.com/embed/TYMMOjBUPMM"
+"trailer":"https://youtube.com/embed/TYMMOjBUPMM",
+    "counts": {"likes":0, "disLikes": 0}
 },
 {
     "id": "8",
@@ -83,7 +90,8 @@
  "genre":["Romance", "Comedy"],
 "releaseDate" :"28 July 2017",
 "watchOn": {"link":"", "name":""},
-"trailer":"https://youtube.com/embed/SifVEckLj0I"
+"trailer":"https://youtube.com/embed/SifVEckLj0I",
+    "counts": {"likes":0, "disLikes": 0}
 },
 {
     "id": "9",
@@ -94,7 +102,8 @@
  "genre":["Romance","Comedy","Musical"],
 "releaseDate" :"21 July 2017",
 "watchOn": {"link":"", "name":""},
-"trailer":"https://youtube.com/embed/eFjoaE6ffx0"
+"trailer":"https://youtube.com/embed/eFjoaE6ffx0",
+    "counts": {"likes":0, "disLikes": 0}
 },
 {
     "id": "10",
@@ -104,5 +113,6 @@
 "summary":"Doc forces Baby, a former getaway driver, to partake in a heist, threatening to hurt his girlfriend if he refuses. But the plan goes awry when their arms dealers turn out to be undercover officers.",
  "genre":["Music","Action","Adventure","Heist","Comedy","Thriller","Drama","Crime"],
 "releaseDate" :"11 March 2017 ","watchOn":{"link":"https://www.netflix.com/watch/80142090?source=35","name":"Netflix"},
-"trailer":"https://youtube.com/embed/D9YZw_X5UzQ" 
+"trailer":"https://youtube.com/embed/D9YZw_X5UzQ" ,
+    "counts": {"likes":0, "disLikes": 0}
 }]
