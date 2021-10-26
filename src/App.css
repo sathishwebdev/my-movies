@@ -30,36 +30,37 @@ a {
   border-radius: 5%;
 }
 .contentImg {
-  height: 35vmin;
+  height: 50vh;
   margin: 3%;
 }
 .content {
   text-align: left;
   margin: 30px;
   padding: 10px;
-  max-width: 500px;
+  max-width: 50%;
+  
 }
 .movieCon {
   margin: 2%;
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* flex-wrap: wrap;  */
-  width: 100%
+  justify-content: center; 
+  align-items: center; 
+  flex-wrap: wrap; 
+  width: 100%;
 }
-@media screen and (max-width: 1000px) {
+/* @media screen and (max-width: 1000px) {
   .movieCon {
     flex-direction: column;
     justify-content: center; 
     align-items: center;
   }
   .contentImg {
-    height: 70vmin;
+    height: 70vh;
   }
   .container {
       display: none;
       }
-}
+} */
 .name {
   margin-bottom: 0;
   text-align: center;
@@ -115,12 +116,12 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-.container {
+/* .container {
   position: relative;
   width: 60%;
   height: auto;
   padding-bottom: 56.25%;
-}
+} */
 .video {
   position: absolute;
   top: 0;
@@ -128,26 +129,19 @@ a {
   width: 100%;
   height: 70%;
 }
-form{
-  display:flex;
-  flex-direction: column;
-  justify-content:center;
-  align-items:center;
-  height: 100vh;
-  width: 100%;
-}
+
 
 .TextField{
-  border-color:antiquewhite;
-  margin: 1%;
-  width: 70%;
+  height: 100vh;
+  width: 100%;
+  justify-content:center;
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+  align-items:center;
 }
 
-.btn{
-width: fit-content;
-background-color:#61dafb;
-border:none;
-border-radius: 5px;
-
+.inputs{
+  width: 70%;
 }
 

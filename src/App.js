@@ -3,7 +3,9 @@ import React, {useState} from 'react'
 import './App.css';
 import movieData from './movies.json' 
 import * as mui from '@mui/material'
-import { alpha, styled } from '@mui/material/styles';
+import AddIcon from '@mui/icons-material/Add';
+import TopIcon from '@mui/icons-material/KeyboardArrowUp';
+import * as Icons from '@mui/icons-material';
 
 const Button = mui.Button , TextField = mui.TextField ;
 var temp = ['1'] // helps us to detect and show selected data
@@ -103,15 +105,15 @@ e.preventDefault();
 
 
   return(<div id="newMovie">
-  <form  >
-  <h2>Add New Movie </h2>
-    <TextField 
+ 
+   <div className="TextField">  <h2 style={{width: '100%'}}>Add New Movie   <span style={{float:"right"}}>  <Button variant="contained" href="#movieList"><TopIcon /> Movie List</Button></span></h2>
+   <TextField 
     label="Movie Name" 
     variant="outlined" 
     value = {formData.name}
     type="text" 
     margin="normal"
-    className="TextField"
+    className="inputs"
     name="Movie name" 
     id="MovieName" 
     placeholder = 'Movie Name' 
@@ -121,8 +123,8 @@ e.preventDefault();
     <TextField 
     label="Poster Link" 
     variant="outlined" 
-    className="TextField"
-    type="url" 
+    type="url"
+     className="inputs" 
     margin="normal"
     name="poster" 
     id="poster" 
@@ -134,9 +136,9 @@ e.preventDefault();
     <TextField 
     label="Summary" 
     variant="outlined" 
+     className="inputs"
     rows={4}
     margin="normal"
-    className="TextField"
     multiline
     value = {formData.summary} 
     name="summary" 
@@ -150,14 +152,14 @@ e.preventDefault();
     type = 'submit'
     onClick={handleSubmit}
      >Submit</Button>
-  </form>
+     </div>
   </div>)
 }
 
   return (
-    <div style={{textAlign: 'center',color: 'white'}}>
+    <div id="movieList" style={{textAlign: 'center',color: 'white'}}>
       <h1>My Movies   
-   <span style={{float:"right"}}><Button variant="contained" href="#newMovie">Add movie</Button></span></h1>
+   <span style={{float:"right"}}><Button variant="contained" href="#newMovie"> <AddIcon /> Add movie</Button></span></h1>
       {/* Showing Movie List */}
       <div className="App">
         <div  className="App-header">
@@ -182,20 +184,24 @@ e.preventDefault();
         <div key={id}>
           <h1 className="name">{name}</h1>
           <div  className="movieCon ">
+           
+            
+            <div className="container">
+            <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" >
+                <img src={poster} className="contentImg" alt={name} title={name} /> </a>
+            {/* video   <iframe  src={`${trailer}?controls=1&autoplay=1&mute=1`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="video"></iframe>*/} 
+            </div> 
+            
             <div className="content "> 
-              <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" >
-                <img src={poster} className="contentImg" alt={name} title={name} /> </a> 
+               
               <Counter likes = {counts.likes} dislikes = {counts.disLikes} />
               <p> <a href={`https:youtu.be/${trailer.split("/")[trailer.split("/").length-1]}`} className="App-link"> Watch Trailer  </a></p>
               <p> category :  {category} </p>
               <p> Release Date : {releaseDate} </p>
               <p> Genre : {genre.join(", ")}</p>
-              <details><summary> Description</summary> <p style={{maxWidth:'60%'}}>{summary}</p></details> 
+              {/* <details><summary> Description </summary> <p >{summary}</p></details>  */}
+              <p> Description : {summary} </p>
               <p> Watch On <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" > {watchOn.name} </a></p>
-            </div>
-            {/* video */}
-            <div className="container">
-              <iframe  src={`${trailer}?controls=1&autoplay=1&mute=1`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="video"></iframe> 
             </div>
           </div>
         </div>
@@ -209,28 +215,65 @@ e.preventDefault();
 
 const Counter = ({likes, dislikes}) =>{
   const [like, setLike] = useState(likes);
-  const [disLike, setDisLike]= useState(dislikes)
+  const [disLike, setDisLike]= useState(dislikes);
+  const [status, setStatus] = useState(''); 
 const LikeCount = () => {
 
+  document.getElementById('likeBtn').disabled = true
+  setStatus('liked')
   setLike(like + 1)
   disLike === 0 ? setDisLike(0)
 :  setDisLike(disLike - 1)
 
-
+document.getElementById('disLikeBtn').disabled = false
 
 }
 
 const DisLikeCount = () =>{
+
+  document.getElementById('disLikeBtn').disabled = true
+  setStatus('disliked')
   setDisLike(disLike + 1)
   like === 0 ? setLike(0)
 :  setLike(like - 1)
+
+document.getElementById('likeBtn').disabled = false
 }
   return <div>
   {/* 
   state - current scenario - current data
    */}
-    <button onClick={LikeCount} id="likeBtn" > 👍 {like} </button>
-    <button onClick={DisLikeCount} id="disLikeBtn" > 👎 {disLike} </button>
+    <mui.IconButton 
+    style={{fontSize:"30px"}}
+    onClick={LikeCount}
+    disabled={status === 'liked' ? true : false}
+    id="likeBtn" >
+    <mui.Badge 
+    badgeContent={like} 
+    color="primary"
+    anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'right',
+  }}>
+    {status === 'liked' ? <Icons.ThumbUp /> : <Icons.ThumbUpOffAlt />}  
+    </mui.Badge> 
+    </mui.IconButton>
+    
+    <mui.IconButton 
+    style={{fontSize:"30px"}}
+    onClick={DisLikeCount}
+    id="disLikeBtn" 
+    disabled={status === 'disliked'? true : false}> 
+    <mui.Badge 
+    badgeContent={disLike} 
+    color="error"
+    anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'right',
+  }}
+    >
+    { status === 'disliked' ? <Icons.ThumbDown /> :<Icons.ThumbDownOffAlt /> } 
+    </mui.Badge> </mui.IconButton>
   
   </div>
 }
