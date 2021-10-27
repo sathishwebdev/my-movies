@@ -11,8 +11,8 @@ const Button = mui.Button , TextField = mui.TextField ;
 var temp = ['1'] // helps us to detect and show selected data
 function App() {
 const [movies, setMovies] = useState(movieData)
-
-const [movie, setMovie] = useState(movies.filter(data=>data.id === '1'))
+const [show, setShow] = useState(false)
+const [movie, setMovie] = useState(null)
       
     
    const getById = (id) =>{
@@ -179,7 +179,8 @@ e.preventDefault();
       
 
       {/* showing Movie details */}
-      {
+     {movie === null? <div><h3>Select a Movie to show Details </h3></div> :  <div>
+        {
         movie.map(({id,name, poster,trailer, category, watchOn, summary, releaseDate, genre, counts})=>(
         <div key={id}>
           <h1 className="name">{name}</h1>
@@ -200,12 +201,25 @@ e.preventDefault();
               <p> Release Date : {releaseDate} </p>
               <p> Genre : {genre.join(", ")}</p>
               {/* <details><summary> Description </summary> <p >{summary}</p></details>  */}
-              <p> Description : {summary} </p>
+              <p> Description : {!show ? <span>{summary.substring(0, 50)}... 
+              <Button 
+              variant = "text"
+              color = "primary"
+              onClick = {(e)=>setShow(true)}
+              >
+               <Icons.KeyboardArrowDown /> Read More</Button> </span> : <span>{summary} 
+                <Button
+                variant="text"
+                color = "warning"
+                onClick = {(e)=>setShow(false) }
+                >
+               <TopIcon/> Read Less</Button></span> } </p>
               <p> Watch On <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" > {watchOn.name} </a></p>
             </div>
           </div>
         </div>
       ))}
+      </div>}
       <AddMovie />
     </div>
   );
