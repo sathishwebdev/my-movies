@@ -6,10 +6,30 @@ import * as mui from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import TopIcon from '@mui/icons-material/KeyboardArrowUp';
 import * as Icons from '@mui/icons-material';
+import AddMovie from './addMovie';
+import MovieDetail from './movieDetail';
+// import {Link} from 'react-router-dom'
+import { Route, Switch, useHistory } from 'react-router'
+// import Splash from './splash'
 
-const Button = mui.Button , TextField = mui.TextField ;
+const Button = mui.Button;
 var temp = ['1'] // helps us to detect and show selected data
-function App() {
+
+function App(){
+  return(<div>
+    <Switch>
+      <Route exact path = '/' children={<MovieList/>}></Route>
+        {/* <Route path="/movies" children={}></Route> */}
+      <Route path='/movie/:id' children={MovieDetail} ></Route>
+      <Route path="**" >
+       
+      </Route>
+    </Switch>
+</div>)
+}
+
+
+function MovieList() {
 const [movies, setMovies] = useState(movieData)
 const [show, setShow] = useState(false)
 const [movie, setMovie] = useState(null)
@@ -38,123 +58,6 @@ const [movie, setMovie] = useState(null)
   }
    
  //add movie (temperary)
-
-export function AddMovie(){
-  
-  const [formData, setFormData] = useState({
-    name : '',
-    poster: '',
-    summary: '',
-    id :11,
-    category :'',
-    genre :[''],
-    releaseDate :'',
-    watchOn :{link:'', name:''},
-    trailer :'',
-    counts :{likes:0, disLikes:0}
-  })
-
-
-//form handlers
-
-const handleMovieName = (e)=> {
-  e.preventDefault();
-  setFormData({...formData,name: e.target.value})
-  }
-
-const handlePoster =(e)=> {
-  e.preventDefault()
-  setFormData( {...formData, poster: e.target.value})
-  }  
-
-const handleSummary = (e)=> {
-  e.preventDefault()
-  setFormData( {...formData, summary: e.target.value})}
-
-
-const handleSubmit = (e) => {
-e.preventDefault();
-  setMovies([...movies, formData]);
-
-  setFormData({
-    name : '',
-    poster: '',
-    summary: '',
-    id :formData.id + 1,
-    category :'',
-    genre :[''],
-    releaseDate :'',
-    watchOn :{link:'', name:''},
-    trailer :'',
-    counts :{likes:0, disLikes:0}
-  })
-}
-
-// const Input = styled(TextField)({
-  
-//   '& .MuiOutlinedInput-root': {
-//     '& fieldset': {
-//       borderColor: 'white',
-//     },
-//     '&:hover fieldset': {
-//       borderColor: '#10a3ce',
-//     },
-    
-//   },
-// });
-
-
-  return(<div id="newMovie">
- 
-   <div className="TextField">  <h2 style={{width: '100%'}}>Add New Movie   <span style={{float:"right"}}>  <Button variant="contained" href="#movieList"><TopIcon /> Movie List</Button></span></h2>
-   <TextField 
-    label="Movie Name" 
-    variant="outlined" 
-    value = {formData.name}
-    type="text" 
-    margin="normal"
-    className="inputs"
-    name="Movie name" 
-    id="MovieName" 
-    placeholder = 'Movie Name' 
-    onChange={handleMovieName}
-    required/>
-    
-    <TextField 
-    label="Poster Link" 
-    variant="outlined" 
-    type="url"
-     className="inputs" 
-    margin="normal"
-    name="poster" 
-    id="poster" 
-    placeholder="Poster" 
-    value = {formData.poster} 
-    onChange={handlePoster}
-    required />
-
-    <TextField 
-    label="Summary" 
-    variant="outlined" 
-     className="inputs"
-    rows={4}
-    margin="normal"
-    multiline
-    value = {formData.summary} 
-    name="summary" 
-    id="summary" 
-    placeholder="summary" 
-    onChange={handleSummary} />
-  
-    <Button 
-    margin="normal"
-    variant="outlined"
-    type = 'submit'
-    onClick={handleSubmit}
-     >Submit</Button>
-     </div>
-  </div>)
-}
 
   return (
     <div id="movieList" style={{textAlign: 'center',color: 'white'}}>
@@ -190,12 +93,13 @@ e.preventDefault();
             <div className="container">
             <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" >
                 <img src={poster} className="contentImg" alt={name} title={name} /> </a>
-            {/* video   <iframe  src={`${trailer}?controls=1&autoplay=1&mute=1`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="video"></iframe>*/} 
+            {/* video   <iframe  src={`${trailer}?controls=1&autoplay=1&mute=1`} title={`${name}'s Trailer'`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="video"></iframe> */}
             </div> 
             
             <div className="content "> 
                
-              <Counter likes = {counts.likes} dislikes = {counts.disLikes} />
+              <Counter id={id} movies = {movies} stat={counts.status} likes = {counts.likes} dislikes = {counts.disLikes} />
+
               <p> <a href={`https:youtu.be/${trailer.split("/")[trailer.split("/").length-1]}`} className="App-link"> Watch Trailer  </a></p>
               <p> category :  {category} </p>
               <p> Release Date : {releaseDate} </p>
@@ -220,27 +124,26 @@ e.preventDefault();
         </div>
       ))}
       </div>}
-      {/* <AddMovie /> */}
+      <AddMovie movies = {movies} setMovies = {setMovies}/>
     </div>
   );
 }
 
 // Like and Dislike button
 
-const Counter = ({likes, dislikes}) =>{
+const Counter = ({likes, dislikes, id, movies, stat}) =>{
   const [like, setLike] = useState(likes);
   const [disLike, setDisLike]= useState(dislikes);
-  const [status, setStatus] = useState(''); 
+  const [status, setStatus] = useState(stat); 
+  
 const LikeCount = () => {
 
   document.getElementById('likeBtn').disabled = true
   setStatus('liked')
   setLike(like + 1)
-  disLike === 0 ? setDisLike(0)
-:  setDisLike(disLike - 1)
-
-document.getElementById('disLikeBtn').disabled = false
-
+  status === 'disliked'? setDisLike(disLike-1) : setDisLike(disLike)
+  movies[id-1]={...movies[id-1], counts :{likes: like+1, disLikes : status === 'disliked'? disLike-1 : disLike , status: 'liked'}}
+  console.log(movies[id-1].counts)
 }
 
 const DisLikeCount = () =>{
@@ -248,11 +151,11 @@ const DisLikeCount = () =>{
   document.getElementById('disLikeBtn').disabled = true
   setStatus('disliked')
   setDisLike(disLike + 1)
-  like === 0 ? setLike(0)
-:  setLike(like - 1)
-
-document.getElementById('likeBtn').disabled = false
+  status ==='liked'? setLike(like-1) : setLike(like)
+  movies[id-1]={...movies[id-1], counts :{likes: status === 'liked'? like-1 : like, disLikes : disLike+1, status: 'disliked'}}
+  console.log(movies[id-1].counts)
 }
+
   return <div>
   {/* 
   state - current scenario - current data
@@ -292,6 +195,8 @@ document.getElementById('likeBtn').disabled = false
   </div>
 }
 
-
+export const BackBtn = () =>{
+  let history = useHistory()
+  return <mui.IconButton onClick={()=>history.goBack()} ><Icons.KeyboardArrowLeft/></mui.IconButton> }
 
 export default App;

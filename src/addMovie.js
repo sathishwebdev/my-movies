@@ -1,0 +1,126 @@
+import React,{useState} from 'react'
+import * as mui from '@mui/material'
+import TopIcon from '@mui/icons-material/KeyboardArrowUp';
+
+
+const Button = mui.Button , TextField = mui.TextField ;
+
+function AddMovie(props) { 
+       const [movies, setMovies] = [props.movies, props.setMovies]
+        const [formData, setFormData] = useState({
+          name : '',
+          poster: '',
+          summary: '',
+          id :11,
+          category :'',
+          genre :[''],
+          releaseDate :'',
+          watchOn :{link:'', name:''},
+          trailer :'',
+          counts :{likes:0, disLikes:0}
+        })
+      
+      
+      //form handlers
+      
+      const handleMovieName = (e)=> {
+        e.preventDefault();
+        setFormData({...formData,name: e.target.value})
+        }
+      
+      const handlePoster =(e)=> {
+        e.preventDefault()
+        setFormData( {...formData, poster: e.target.value})
+        }  
+      
+      const handleSummary = (e)=> {
+        e.preventDefault()
+        setFormData( {...formData, summary: e.target.value})}
+      
+      
+      const handleSubmit = (e) => {
+      e.preventDefault();
+        setMovies([...movies, formData]);
+      
+        setFormData({
+          name : '',
+          poster: '',
+          summary: '',
+          id :formData.id + 1,
+          category :'',
+          genre :[''],
+          releaseDate :'',
+          watchOn :{link:'', name:''},
+          trailer :'',
+          counts :{likes:0, disLikes:0}
+        })
+      }
+      
+      // const Input = styled(TextField)({
+        
+      //   '& .MuiOutlinedInput-root': {
+      //     '& fieldset': {
+      //       borderColor: 'white',
+      //     },
+      //     '&:hover fieldset': {
+      //       borderColor: '#10a3ce',
+      //     },
+          
+      //   },
+      // });
+      
+      
+        return(<div id="newMovie">
+       
+         <div className="TextField">  <h2 style={{width: '100%'}}>Add New Movie   <span style={{float:"right"}}>  <Button variant="contained" href="#movieList"><TopIcon /> Movie List</Button></span></h2>
+         <TextField 
+          label="Movie Name" 
+          variant="outlined" 
+          value = {formData.name}
+          type="text" 
+          margin="normal"
+          className="inputs"
+          name="Movie name" 
+          id="MovieName" 
+          placeholder = 'Movie Name' 
+          onChange={handleMovieName}
+          required/>
+          
+          <TextField 
+          label="Poster Link" 
+          variant="outlined" 
+          type="url"
+           className="inputs" 
+          margin="normal"
+          name="poster" 
+          id="poster" 
+          placeholder="Poster" 
+          value = {formData.poster} 
+          onChange={handlePoster}
+          required />
+      
+          <TextField 
+          label="Summary" 
+          variant="outlined" 
+           className="inputs"
+          rows={4}
+          margin="normal"
+          multiline
+          value = {formData.summary} 
+          name="summary" 
+          id="summary" 
+          placeholder="summary" 
+          onChange={handleSummary} />
+        
+          <Button 
+          margin="normal"
+          variant="outlined"
+          type = 'submit'
+          onClick={handleSubmit}
+           >Submit</Button>
+           </div>
+        </div>)
+      }
+      
+
+export default AddMovie

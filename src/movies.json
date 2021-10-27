@@ -8,7 +8,7 @@
     "releaseDate" :" 12 september 2013",
     "watchOn": {"link":"https://www.netflix.com/in/title/80002479?source=35", "name":"Netflix"},
     "trailer":"https://www.youtube.com/embed/oVzVdvGIC7U",
-    "counts": {"likes":0, "disLikes": 0}
+    "counts": {"likes":45, "disLikes": 8, "status": ""}
 },
 {
     "id": "2",
@@ -20,7 +20,7 @@
 "releaseDate" :"15 December 2006",
 "watchOn": {"link":"https://www.netflix.com/in/title/70044605?source=35","name":"Netflix"},
 "trailer":"https://youtube.com/embed/DMOBlEcRuw8",
-"counts": {"likes":0, "disLikes": 0}
+"counts": {"likes":0, "disLikes": 0, "status": ""}
 },
 {
     "id": "3",
@@ -32,7 +32,7 @@
 "releaseDate" :"3 January 2014",
 "watchOn": {"link": "https://www.amazon.com/Wolf-Wall-Street-Leonardo-DiCaprio/dp/B00IIU9U00", "name":"Prime Video"},
 "trailer":"https://youtube.com/embed/iszwuX1AK6A",
-"counts": {"likes":0, "disLikes": 0}
+"counts": {"likes":0, "disLikes": 0, "status": ""}
 },
 {
     "id": "4",
@@ -44,7 +44,7 @@
 "releaseDate" :"11 January 2019",
 "watchOn":{"link": "https://www.netflix.com/in/title/80197526?source=35", "name": "Netflix"},
 "trailer":"https://youtube.com/embed/zmgYlYw7Uwk",
-    "counts": {"likes":0, "disLikes": 0}
+    "counts": {"likes":0, "disLikes": 0, "status": ""}
 },
 {
     "id": "5",
@@ -56,7 +56,7 @@
 "releaseDate" :"1 May 2008",
 "watchOn":{ "name":"HotStar", "link" : "https://www.hotstar.com/in/movies/iron-man/1660000038/watch?utm_source=gwa"},
 "trailer":"https://youtube.com/embed/8ugaeA-nMTc",
-    "counts": {"likes":0, "disLikes": 0}
+    "counts": {"likes":0, "disLikes": 0, "status": ""}
 },
 {
     "id": "6",
@@ -67,7 +67,7 @@
  "genre":["Action","Super hero","Adventure","Science Fiction","Fantasy"],
 "releaseDate" :"27 April 2012 ","watchOn":{"link":"https://www.hotstar.com/in/movies/marvels-the-avengers/1660000015/watch?utm_source=gwa","name":"HotStar"},
 "trailer":"https://youtube.com/embed/eOrNdBpGMv8",
-    "counts": {"likes":0, "disLikes": 0}
+    "counts": {"likes":0, "disLikes": 0, "status": ""}
 },
 {
     "id": "7",
@@ -79,7 +79,7 @@
 "releaseDate" :" 24 May 2002",
 "watchOn":{"link":"http://www.youtube.com/watch?v=XhbJwZFgeVA", "name":"YouTube"},
 "trailer":"https://youtube.com/embed/TYMMOjBUPMM",
-    "counts": {"likes":0, "disLikes": 0}
+    "counts": {"likes":0, "disLikes": 0, "status": ""}
 },
 {
     "id": "8",
@@ -91,7 +91,7 @@
 "releaseDate" :"28 July 2017",
 "watchOn": {"link":"", "name":""},
 "trailer":"https://youtube.com/embed/SifVEckLj0I",
-    "counts": {"likes":0, "disLikes": 0}
+    "counts": {"likes":0, "disLikes": 0, "status": ""}
 },
 {
     "id": "9",
@@ -103,7 +103,7 @@
 "releaseDate" :"21 July 2017",
 "watchOn": {"link":"", "name":""},
 "trailer":"https://youtube.com/embed/eFjoaE6ffx0",
-    "counts": {"likes":0, "disLikes": 0}
+    "counts": {"likes":0, "disLikes": 0, "status": ""}
 },
 {
     "id": "10",
@@ -114,5 +114,5 @@
  "genre":["Music","Action","Adventure","Heist","Comedy","Thriller","Drama","Crime"],
 "releaseDate" :"11 March 2017 ","watchOn":{"link":"https://www.netflix.com/watch/80142090?source=35","name":"Netflix"},
 "trailer":"https://youtube.com/embed/D9YZw_X5UzQ" ,
-    "counts": {"likes":0, "disLikes": 0}
+    "counts": {"likes":0, "disLikes": 0, "status": ""}
 }]
