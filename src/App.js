@@ -39,7 +39,7 @@ const [movie, setMovie] = useState(null)
    
  //add movie (temperary)
 
- function AddMovie(){
+export function AddMovie(){
   
   const [formData, setFormData] = useState({
     name : '',
@@ -220,7 +220,7 @@ e.preventDefault();
         </div>
       ))}
       </div>}
-      <AddMovie />
+      {/* <AddMovie /> */}
     </div>
   );
 }

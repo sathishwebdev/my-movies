@@ -7,7 +7,12 @@ function Splash() {
             <h1><Link to="/movies" className="link App-link" > <Button
             variant="text"
             className="link"
-            >  Movies</Button> </Link> </h1>
+            >  Movies List</Button> </Link> </h1>
+
+            <h1><Link to="/addMovie" className="link App-link" > <Button
+            variant="text"
+            className="link"
+            > Add a Movie</Button> </Link> </h1>
         </div>
     )
 }

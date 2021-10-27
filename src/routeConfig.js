@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router'
-import App from './App'
+import App,{AddMovie} from './App'
 import Splash from './splash'
 
 function RouteConfig() {
@@ -12,6 +12,9 @@ function RouteConfig() {
                 <Route path="/movies" children={<App/>}>
                 </Route>
                 <Route path = '/' children={<Splash />}></Route>
+                <Route path='/addMovie' >
+                    <AddMovie />
+                </Route>
             </Switch>
         </div>
     )
