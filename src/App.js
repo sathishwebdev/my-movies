@@ -25,7 +25,7 @@ function App(){
     <Switch>
       <Route exact path = '/' children={<MovieList movies={movies} setMovies={setMovies}  />}></Route>
         {/* <Route path="/movies" children={}></Route> */}
-      <Route path='/movie/:movieId' >
+      <Route exact path='/movie/:movieId' >
         <MovieDetail movies = {movies} />
       </Route>
       <Route path="**" >
@@ -79,7 +79,7 @@ const [movie, setMovie] = useState(null)
             
             <div className="container">
             <Link className="App-link" to={`/movie/${id}`}>
-                <img src={poster} className="contentImg" alt={name} title={name} /> </Link>
+                <img src={poster} className="contentImg" alt={name} title="Click to watch Trailer" /> </Link>
             {/* video   <iframe  src={`${trailer}?controls=1&autoplay=1&mute=1`} title={`${name}'s Trailer'`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="video"></iframe> */}
             </div> 
             
@@ -87,7 +87,8 @@ const [movie, setMovie] = useState(null)
                
               <Counter id={id} movies = {movies} stat={counts.status} likes = {counts.likes} dislikes = {counts.disLikes} />
 
-              <p> <a href={`https:youtu.be/${trailer.split("/")[trailer.split("/").length-1]}`} className="App-link"> Watch Trailer  </a></p>
+              {/* <p> <a href={`https:youtu.be/${trailer.split("/")[trailer.split("/").length-1]}`} className="App-link"> Watch Trailer  </a></p> */}
+              <p>Watch <Link className="App-link" to={"/movie/"+id} > Trailer </Link></p>
               <p> category :  {category} </p>
               <p> Release Date : {releaseDate} </p>
               <p> Genre : {genre.join(", ")}</p>
