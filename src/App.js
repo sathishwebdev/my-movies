@@ -10,52 +10,39 @@ import AddMovie from './addMovie';
 import MovieDetail from './movieDetail';
 // import {Link} from 'react-router-dom'
 import { Route, Switch, useHistory } from 'react-router'
+import NotExists from './notExists';
+import { Link } from 'react-router-dom';
 // import Splash from './splash'
 
 const Button = mui.Button;
 var temp = ['1'] // helps us to detect and show selected data
 
 function App(){
+  const [movies, setMovies] = useState(movieData)
+
+
   return(<div>
     <Switch>
-      <Route exact path = '/' children={<MovieList/>}></Route>
+      <Route exact path = '/' children={<MovieList movies={movies} setMovies={setMovies}  />}></Route>
         {/* <Route path="/movies" children={}></Route> */}
-      <Route path='/movie/:id' children={MovieDetail} ></Route>
+      <Route path='/movie/:movieId' >
+        <MovieDetail movies = {movies} />
+      </Route>
       <Route path="**" >
-       
+       <NotExists />
       </Route>
     </Switch>
 </div>)
 }
 
 
-function MovieList() {
-const [movies, setMovies] = useState(movieData)
+function MovieList({movies, setMovies}) {
+
 const [show, setShow] = useState(false)
 const [movie, setMovie] = useState(null)
       
     
-   const getById = (id) =>{
-
-    temp[1] = temp[0] 
-    temp[0] = id
-    setMovie(movies.filter(data=>data.id === id))
-    const preSelectedEle = document.getElementById(temp[1])
-    const currentSelection = document.getElementById(temp[0])
-   
-    //style for pre-selected - to unselect
-    preSelectedEle.style.border = "none"
-    preSelectedEle.style.backgroundColor= "transparent"
-    preSelectedEle.style.boxShadow="none"
-    preSelectedEle.style.padding = "2px"
-    // style for selected  
-    currentSelection.style.border = "1px grey solid"
-    currentSelection.style.borderRadius="5%"
-    currentSelection.style.backgroundColor="gray"
-    currentSelection.style.boxShadow="black 1px 2px 15px"
-    currentSelection.style.padding = "6px"
-  
-  }
+ 
    
  //add movie (temperary)
 
@@ -70,7 +57,7 @@ const [movie, setMovie] = useState(null)
            movies.map(({id, name, poster})=>(
             <div key={name} id={id} className="movieList">
               <div className="posterCon" >
-                <button style={{padding:"0", border: 'none'}} onClick = {()=>getById(id)}>  
+                <button style={{padding:"0", border: 'none'}} onClick = {()=>updateById({id, movie, setMovie, movies})}>  
                 <img src={poster} className="poster" alt={name} title={name} />
                 </button> 
               </div>
@@ -91,8 +78,8 @@ const [movie, setMovie] = useState(null)
            
             
             <div className="container">
-            <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" >
-                <img src={poster} className="contentImg" alt={name} title={name} /> </a>
+            <Link className="App-link" to={`/movie/${id}`}>
+                <img src={poster} className="contentImg" alt={name} title={name} /> </Link>
             {/* video   <iframe  src={`${trailer}?controls=1&autoplay=1&mute=1`} title={`${name}'s Trailer'`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="video"></iframe> */}
             </div> 
             
@@ -108,7 +95,7 @@ const [movie, setMovie] = useState(null)
               <p> Description : {!show ? <span>{summary.substring(0, 50)}... 
               <Button 
               variant = "text"
-              color = "primary"
+              sx={{color:"#61dafb"}}
               onClick = {(e)=>setShow(true)}
               >
                <Icons.KeyboardArrowDown /> Read More</Button> </span> : <span>{summary} 
@@ -129,9 +116,37 @@ const [movie, setMovie] = useState(null)
   );
 }
 
+// update movie by id
+
+export const updateById = ({id, movie, setMovie, movies}) =>{
+
+  temp[1] = temp[0] 
+  temp[0] = id
+  setMovie(movies.filter(data=>data.id === id))
+  const preSelectedEle = document.getElementById(temp[1])
+  const currentSelection = document.getElementById(temp[0])
+ 
+  //style for pre-selected - to unselect
+  preSelectedEle.style.border = "none"
+  preSelectedEle.style.backgroundColor= "transparent"
+  preSelectedEle.style.boxShadow="none"
+  preSelectedEle.style.padding = "2px"
+  // style for selected  
+  currentSelection.style.border = "1px grey solid"
+  currentSelection.style.borderRadius="5%"
+  currentSelection.style.backgroundColor="gray"
+  currentSelection.style.boxShadow="black 1px 2px 15px"
+  currentSelection.style.padding = "6px"
+
+}
+
+
+
+
+
 // Like and Dislike button
 
-const Counter = ({likes, dislikes, id, movies, stat}) =>{
+export const Counter = ({likes, dislikes, id, movies, stat}) =>{
   const [like, setLike] = useState(likes);
   const [disLike, setDisLike]= useState(dislikes);
   const [status, setStatus] = useState(stat); 

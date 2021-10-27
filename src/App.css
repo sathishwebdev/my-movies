@@ -1,6 +1,7 @@
 .App {
   font-size: normal;
   display: flex;
+  color: whitesmoke;
   flex-direction: column;
   /* align-items: center;  */
  /* justify-content: center; */
@@ -17,6 +18,9 @@ a {
 .poster {
   height: 20vmin;
 }
+.poster-in-detail{
+  height: 15vmin;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -29,6 +33,18 @@ a {
   justify-content: center;
   border-radius: 5%;
 }
+.posterCon-in-detail {
+  height: 10vmin;
+  width: 10vmin;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  border-radius: 5%;
+  margin: 1%;
+  margin-right: 3%;
+}
+
+
 .contentImg {
   height: 50vh;
   margin: 3%;
@@ -44,7 +60,15 @@ a {
   margin: 2%;
   display: flex;
   justify-content: center; 
-  align-items: center; 
+  align-items: top; 
+  flex-wrap: wrap; 
+  width: 100%;
+}
+.movieCon-in-detail {
+  margin: 2%;
+  display: flex;
+  justify-content: center; 
+  align-items: top; 
   flex-wrap: wrap; 
   width: 100%;
 }
@@ -76,7 +100,15 @@ a {
   overflow-x: auto;
   /* width: 100%; */
 }
-
+.App-header-in-detail {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  /* overflow-x: auto; */
+  width: 20%;
+  
+}
 .movieList {
   background-color: #282c34;
   display: flex;
@@ -85,6 +117,17 @@ a {
   margin: 1%;
   /* justify-content: center; */
   width: 120px;
+  text-align: left;
+}
+.movieList-in-detail {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin: 1%;
+  align-items: center;
+  /* justify-content: center; */
+  width: 100%;
   text-align: left;
 }
 
