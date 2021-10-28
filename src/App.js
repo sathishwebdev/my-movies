@@ -213,6 +213,10 @@ const DisLikeCount = () =>{
 
 export const BackBtn = () =>{
   let history = useHistory()
-  return <mui.IconButton onClick={()=>history.goBack()} ><Icons.KeyboardArrowLeft/></mui.IconButton> }
+  return <mui.IconButton onClick={()=>history.goBack()} ><Icons.ArrowBackIos/> </mui.IconButton> }
+
+export const HomeBtn = () =>{
+  let history = useHistory()
+  return <mui.IconButton onClick={()=>history.push('/')} ><Icons.HomeMax/> </mui.IconButton> }  
 
 export default App;

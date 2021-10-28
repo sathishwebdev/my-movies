@@ -10,6 +10,7 @@
 html {
   background-color: #282c34;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 p,
 a {
@@ -210,7 +211,7 @@ a {
     align-items: center;
   }
   .contentImg {
-    height: 70vh;
+    height: 50vh;
   }
   .App-header-in-detail {
   width: 90%;

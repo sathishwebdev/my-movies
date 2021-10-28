@@ -36,7 +36,10 @@ function AddMovie(props) {
       const handleSummary = (e)=> {
         e.preventDefault()
         setFormData( {...formData, summary: e.target.value})}
-      
+        
+        const handleTrailer = (e)=> {
+            e.preventDefault()
+            setFormData( {...formData, trailer: e.target.value})}
       
       const handleSubmit = (e) => {
       e.preventDefault();
@@ -97,6 +100,19 @@ function AddMovie(props) {
           placeholder="Poster" 
           value = {formData.poster} 
           onChange={handlePoster}
+          required />
+
+        <TextField 
+          label="Trailer Link" 
+          variant="outlined" 
+          type="url"
+          className="inputs" 
+          margin="normal"
+          name="trailer" 
+          id="trailer" 
+          placeholder="Trailer" 
+          value = {formData.trailer} 
+          onChange={handleTrailer}
           required />
       
           <TextField 

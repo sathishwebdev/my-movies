@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import {useParams } from 'react-router'
-import {BackBtn} from './App'
+import {BackBtn, HomeBtn} from './App'
 import * as mui from '@mui/material'
 import * as Icons from '@mui/icons-material';
 import {Link} from 'react-router-dom'
@@ -29,10 +29,10 @@ function MovieDetail({movies}) {
     const [{id,name, poster,trailer, category, watchOn, summary, releaseDate, genre, counts}] = movie
      console.log(movieId<=movies.length)
     return (<div>
-       {movieId <= movies.length ? <div className="App" >
-       <h2 style={{margin: '1px', padding:'0px', textAlign:"left"}} ><BackBtn/>{name}</h2>
+       {movieId <= movies.length ? <div id={id} className="App" >
+       <h2 style={{margin: '1px', padding:'0px', textAlign:"left"}} ><BackBtn/> <HomeBtn/> {name}</h2>
        {/* video   */}
-       <iframe width="100%" height = "600px"  src={`${trailer}?controls=1&autoplay=0`} title={`${name}'s Trailer'`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
+       <iframe width="100%" height = "400px"  src={`${trailer}?controls=1&autoplay=0`} title={`${name}'s Trailer'`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
 
    <div  key={id}>
      <h1 className="name">{name}</h1>
@@ -78,7 +78,7 @@ function MovieDetail({movies}) {
    >
      <Typography sx={{ width: '100%', flexShrink: 0, border:"none",  }}>
          <div>
-         <Link className="App-link" to ={`./${id}`}> <div className="movieList-in-detail"><div className="posterCon-in-detail" >
+         <Link className="App-link" to ={`/movie/${id}/#${id}`}> <div className="movieList-in-detail"><div className="posterCon-in-detail" >
             
            <img src={poster} className="poster-in-detail" alt={name} title={name} />
            
