@@ -113,9 +113,9 @@ const [movie, setMovie] = useState(null)
               onClick={(e)=>{
                 e.preventDefault();
                movies.delete(id - 1)
-              alert( name + '  deleted')
+              alert(movies.length + id-1 + name + 'deleted')
               // let updatedId = id+1
-              updateById({id:id+1, movie, setMovie, movies})  
+              updateById({ id: id=== movies.length ? id : id+1 , movie, setMovie, movies})  
               }}
               >
               <Icons.Delete/>  Delete
