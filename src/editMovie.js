@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import * as mui from '@mui/material'
 import TopIcon from '@mui/icons-material/KeyboardArrowUp';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import './App.css'
 
 const Button = mui.Button , TextField = mui.TextField ;
@@ -9,10 +9,10 @@ const Button = mui.Button , TextField = mui.TextField ;
 function EditMovie(props) { 
     const {editId} = useParams()
        const [movies, setMovies] = [props.movies, props.setMovies]
-        const [formData, setFormData] = useState(movies.filter(data=> data.id=== editId))
-      
-      
-      //form handlers
+       const [formData, setFormData] = useState(movies[editId-1])
+        let history = useHistory()    
+
+       //form handlers
       
       const handleMovieName = (e)=> {
         e.preventDefault();
@@ -34,8 +34,8 @@ function EditMovie(props) {
       
       const handleSubmit = (e) => {
       e.preventDefault();
-        setMovies([...movies, formData]);
-      
+        movies[editId-1] = {...formData}
+     
         setFormData({
           name : '',
           poster: '',
@@ -48,8 +48,9 @@ function EditMovie(props) {
           trailer :'',
           counts :{likes:0, disLikes:0}
         })
+        alert("successfully edited")
+        history.push('/')
       }
-      
       // const Input = styled(TextField)({
         
       //   '& .MuiOutlinedInput-root': {
@@ -71,6 +72,7 @@ function EditMovie(props) {
           label="Movie Name" 
           variant="outlined" 
           value = {formData.name}
+          defaultValue = {formData.name}
           type="text" 
           margin="normal"
           className="inputs"
@@ -90,6 +92,7 @@ function EditMovie(props) {
           id="poster" 
           placeholder="Poster" 
           value = {formData.poster} 
+          defaultValue = {formData.Poster}
           onChange={handlePoster}
           required />
 
@@ -103,6 +106,7 @@ function EditMovie(props) {
           id="trailer" 
           placeholder="Trailer" 
           value = {formData.trailer} 
+          defaultValue = {formData.trailer}
           onChange={handleTrailer}
           required />
       
@@ -115,6 +119,7 @@ function EditMovie(props) {
           multiline
           value = {formData.summary} 
           name="summary" 
+          defaultValue={formData.summary}
           id="summary" 
           placeholder="summary" 
           onChange={handleSummary} />

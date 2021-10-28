@@ -168,6 +168,8 @@ export const updateById = ({id, movie, setMovie, movies}) =>{
   // currentSelection.style.boxShadow="black 1px 2px 15px"
   // currentSelection.style.padding = "6px"
 
+  console.log(movie)
+
 }
 
 
