@@ -40,9 +40,21 @@ function MovieList({movies, setMovies}) {
 
 const [show, setShow] = useState(false)
 const [movie, setMovie] = useState(null)
-      
-    
- 
+const [edit, setEdit] = useState({
+  name : '',
+  poster: '',
+  summary: '',
+  id :11,
+  category :'',
+  genre :[''],
+  releaseDate :'',
+  watchOn :{link:'', name:''},
+  trailer :'',
+  counts :{likes:0, disLikes:0}
+})      
+
+
+
    
  //add movie (temperary)
 
@@ -54,14 +66,16 @@ const [movie, setMovie] = useState(null)
       <div className="App">
         <div  className="App-header">
           {
-           movies.map(({id, name, poster})=>(
-            <div key={name} id={id} className="movieList">
+           movies.map((movie, id)=>(
+      
+            <div key={movie.name} id={id} className="movieList">
+              {movie.id = id}
               <div className="posterCon" >
                 <button style={{padding:"0", border: 'none'}} onClick = {()=>updateById({id, movie, setMovie, movies})}>  
-                <img src={poster} className="poster" alt={name} title={name} />
+                <img src={movie.poster} className="poster" alt={movie.name} title={movie.name} />
                 </button> 
               </div>
-              <p className="name">{name}</p>
+              <p className="name">{movie.name}</p>
             </div>
           ))}
         </div>
@@ -88,7 +102,7 @@ const [movie, setMovie] = useState(null)
               <Counter id={id} movies = {movies} stat={counts.status} likes = {counts.likes} dislikes = {counts.disLikes} />
 
               {/* <p> <a href={`https:youtu.be/${trailer.split("/")[trailer.split("/").length-1]}`} className="App-link"> Watch Trailer  </a></p> */}
-              <p>Watch <Link className="App-link" to={"/movie/"+id} > Trailer </Link></p>
+              <p> <Link className="App-link" to={"/movie/"+id} > <Icons.Info/> </Link></p>
               <p> category :  {category} </p>
               <p> Release Date : {releaseDate} </p>
               <p> Genre : {genre.join(", ")}</p>
@@ -112,8 +126,8 @@ const [movie, setMovie] = useState(null)
               color='error'
               onClick={(e)=>{
                 e.preventDefault();
-               movies.delete(id - 1)
-              alert(movies.length + id-1 + name + 'deleted')
+               movies.delete(id)
+              alert( name + 'deleted')
               // let updatedId = id+1
               // updateById({ id: id=== movies.length ? id-1 : id+1 , movie, setMovie, movies})  
               setMovie(null)
@@ -121,12 +135,23 @@ const [movie, setMovie] = useState(null)
               >
               <Icons.Delete/>  Delete
               </Button>
+
+              <Button
+              color="info"
+              variant="text"
+              onClick={()=>{
+                setEdit(movie)
+              }}
+              href="#newMovie"
+              >
+               <Icons.Edit/> Edit
+              </Button>
             </div>
           </div>
         </div>
       ))}
       </div>}
-      <AddMovie movies = {movies} setMovies = {setMovies}/>
+      <AddMovie movies = {movies} setMovies = {setMovies} editData = {edit}/>
     </div>
   );
 }
@@ -240,6 +265,6 @@ export const BackBtn = () =>{
 
 export const HomeBtn = () =>{
   let history = useHistory()
-  return <mui.IconButton onClick={()=>history.push('/')} ><Icons.HomeMax/> </mui.IconButton> }  
+  return <mui.IconButton onClick={()=>history.push('/')} ><Icons.Home/> </mui.IconButton> }  
 
 export default App;

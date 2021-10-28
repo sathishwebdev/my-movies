@@ -7,18 +7,7 @@ const Button = mui.Button , TextField = mui.TextField ;
 
 function AddMovie(props) { 
        const [movies, setMovies] = [props.movies, props.setMovies]
-        const [formData, setFormData] = useState({
-          name : '',
-          poster: '',
-          summary: '',
-          id :11,
-          category :'',
-          genre :[''],
-          releaseDate :'',
-          watchOn :{link:'', name:''},
-          trailer :'',
-          counts :{likes:0, disLikes:0}
-        })
+        const [formData, setFormData] = useState(props.editData)
       
       
       //form handlers
@@ -49,7 +38,7 @@ function AddMovie(props) {
           name : '',
           poster: '',
           summary: '',
-          id :formData.id + 1,
+          id :movies.length,
           category :'',
           genre :[''],
           releaseDate :'',
