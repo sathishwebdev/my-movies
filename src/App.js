@@ -129,12 +129,12 @@ const [movie, setMovie] = useState(null)
               <Icons.Delete/>  Delete
               </Button>
 
-              <Button
+             <Link  to={`/edit/${id}`}><Button
               color="info"
               variant="text"
-              ><Link to={`/edit/${id}`}>
-               <Icons.Edit/> Edit </Link>
-              </Button>
+              >
+               <Icons.Edit/> Edit 
+              </Button></Link>
             </div>
           </div>
         </div>
@@ -145,14 +145,6 @@ const [movie, setMovie] = useState(null)
   );
 }
 
-
-//delete
-
-Array.prototype.delete = function(val) {
-  var rest = this.slice((val) + 1 || this.length);
-  this.length = val < 0 ? this.length + val : val;
-  return this.push.apply(this, rest);
-};
 
 // update movie by id
 

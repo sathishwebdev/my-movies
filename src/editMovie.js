@@ -64,9 +64,9 @@ function EditMovie(props) {
       // });
       
       
-        return(<div className="Splash" id="newMovie">
+        return(<div className="Splash" style={{textAlign:"ceneter"}} id="newMovie">
        
-         <div className="TextField">  <h2 style={{width: '100%'}}>Add New Movie   <span style={{float:"right"}}>  <Button variant="contained" href="#movieList"><TopIcon /> Movie List</Button></span></h2>
+         <div className="TextField App-header">  <h2 style={{width: '100%'}}> edit a Movie  </h2>
          <TextField 
           label="Movie Name" 
           variant="outlined" 
