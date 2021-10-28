@@ -113,7 +113,7 @@ const [movie, setMovie] = useState(null)
               onClick={(e)=>{
                 e.preventDefault();
                movies.delete(id - 1)
-              alert(movies.length + id-1 + name + 'deleted')
+              alert( name + '  deleted')
               // let updatedId = id+1
               updateById({id:id+1, movie, setMovie, movies})  
               }}
