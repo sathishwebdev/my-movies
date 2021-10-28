@@ -115,7 +115,8 @@ const [movie, setMovie] = useState(null)
                movies.delete(id - 1)
               alert(movies.length + id-1 + name + 'deleted')
               // let updatedId = id+1
-              updateById({ id: id=== movies.length ? '1' : id+1 , movie, setMovie, movies})  
+              // updateById({ id: id=== movies.length ? id-1 : id+1 , movie, setMovie, movies})  
+              setMovie(null)
               }}
               >
               <Icons.Delete/>  Delete
