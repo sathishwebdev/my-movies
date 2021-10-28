@@ -13,6 +13,7 @@ import { Route, Switch, useHistory } from 'react-router'
 import NotExists from './notExists';
 import { Link } from 'react-router-dom';
 import EditMovie from './editMovie';
+import AllMovies from './allMovies';
 // import Splash from './splash'
 
 const Button = mui.Button;
@@ -20,18 +21,22 @@ var temp = ['1'] // helps us to detect and show selected data
 
 function App(){
   const [movies, setMovies] = useState(movieData)
-
+console.log(movies)
 
   return(<div>
     <Switch>
       <Route exact path = '/' children={<MovieList movies={movies} setMovies={setMovies}  />}></Route>
         {/* <Route path="/movies" children={}></Route> */}
+      <Route exact path = '/all'>
+        <AllMovies movies = {movies} setMovies={setMovies} />
+      </Route>
       <Route exact path='/movie/:movieId' >
         <MovieDetail movies = {movies} />
       </Route>
       <Route exact path = '/edit/:editId'>
         <EditMovie movies = {movies} setMovies = {setMovies} />
       </Route>
+      
       <Route path="**" >
        <NotExists />
       </Route>
@@ -43,10 +48,14 @@ function App(){
 function MovieList({movies, setMovies}) {
 
 const [show, setShow] = useState(false)
-const [movie, setMovie] = useState(null)
-    
+const [movie, setMovie] = useState([{...movies[0], id: 0}])
+let history = useHistory()
 
-
+var HMovieList = []
+let listNo = movies.length > 8 ? 5 : 2
+for(let i = 0; i < listNo; i++){
+  HMovieList.push(movies[i])
+}
 
    
  //add movie (temperary)
@@ -59,7 +68,8 @@ const [movie, setMovie] = useState(null)
       <div className="App">
         <div  className="App-header">
           {
-           movies.map(({id,name,poster})=>(
+         
+           HMovieList.map(({name,poster},id)=>(
       
             <div key={name} id={id} className="movieList">
               <div className="posterCon" >
@@ -70,6 +80,17 @@ const [movie, setMovie] = useState(null)
               <p className="name">{name}</p>
             </div>
           ))}
+
+          <div className="movieList" style={{alignItems:'center'}}>
+            <mui.IconButton
+            onClick={()=>history.push('/all')}
+            sx={{height:"100px", width:"100px"}}
+            color='info'
+            >
+              <Icons.ArrowForwardIos/>
+            </mui.IconButton>
+            see all
+          </div>
         </div>
       </div>
       
@@ -118,18 +139,17 @@ const [movie, setMovie] = useState(null)
               color='error'
               onClick={(e)=>{
                 e.preventDefault();
-              
-              alert( name + 'deleted')
-              // let updatedId = id+1
-              // updateById({ id: id=== movies.length ? id-1 : id+1 , movie, setMovie, movies})  
-              setMovies(movies.filter(data=> data.id !== id))
-              setMovie(movies.filter(data => data.id === (id === movies.length? "1" : id+1)))
+              console.log(movies.filter((data, index)=> index !== id))
+              alert(` ${name} deleted`)
+              setMovies(movies.filter((ele, index)=> id !== index))
+              setMovie(null)
+
               }}
               >
               <Icons.Delete/>  Delete
               </Button>
 
-             <Link  to={`/edit/${id}`}><Button
+             <Link className="App-link"  to={`/edit/${id}`}><Button
               color="info"
               variant="text"
               >
@@ -149,10 +169,10 @@ const [movie, setMovie] = useState(null)
 // update movie by id
 
 export const updateById = ({id, movie, setMovie, movies}) =>{
-
+console.log(id)
   temp[1] = temp[0] 
   temp[0] = id
-  setMovie(movies.filter(data=>data.id === id))
+  setMovie([{...movies[id], id: id}])
   // const preSelectedEle = document.getElementById(temp[1])
   // const currentSelection = document.getElementById(temp[0])
  

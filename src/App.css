@@ -68,7 +68,7 @@ a {
   margin: 2%;
   display: flex;
   justify-content: center; 
-  align-items: top; 
+  align-items: center; 
   flex-wrap: wrap; 
   width: 100%;
 }
@@ -183,6 +183,7 @@ a {
 }
 
 .inputs{
+  color: whitesmoke;
   width: 70%;
 }
 

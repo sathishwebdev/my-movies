@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import * as mui from '@mui/material'
-import TopIcon from '@mui/icons-material/KeyboardArrowUp';
+import * as Icons from '@mui/icons-material';
 import { useHistory, useParams } from 'react-router';
 import './App.css'
 
@@ -9,7 +9,7 @@ const Button = mui.Button , TextField = mui.TextField ;
 function EditMovie(props) { 
     const {editId} = useParams()
        const [movies, setMovies] = [props.movies, props.setMovies]
-       const [formData, setFormData] = useState(movies[editId-1])
+       const [formData, setFormData] = useState(movies[editId])
         let history = useHistory()    
 
        //form handlers
@@ -34,7 +34,7 @@ function EditMovie(props) {
       
       const handleSubmit = (e) => {
       e.preventDefault();
-        movies[editId-1] = {...formData}
+        movies[editId] = {...formData}
      
         setFormData({
           name : '',
@@ -51,85 +51,95 @@ function EditMovie(props) {
         alert("successfully edited")
         history.push('/')
       }
-      // const Input = styled(TextField)({
-        
-      //   '& .MuiOutlinedInput-root': {
-      //     '& fieldset': {
-      //       borderColor: 'white',
-      //     },
-      //     '&:hover fieldset': {
-      //       borderColor: '#10a3ce',
-      //     },
-          
-      //   },
-      // });
       
+        return(<div className="" style={{textAlign:"left", color:"whitesmoke"}} id="newMovie">
       
-        return(<div className="Splash" style={{textAlign:"center"}} id="newMovie">
-       
-         <div className="TextField App-header">  <h2 style={{width: '100%'}}> Edit a Movie  </h2>
-         <TextField 
-          label="Movie Name" 
-          variant="outlined" 
-          value = {formData.name}
-          defaultValue = {formData.name}
-          type="text" 
-          margin="normal"
-          className="inputs"
-          name="Movie name" 
-          id="MovieName" 
-          placeholder = 'Movie Name' 
-          onChange={handleMovieName}
-          required/>
-          
-          <TextField 
-          label="Poster Link" 
-          variant="outlined" 
-          type="url"
-           className="inputs" 
-          margin="normal"
-          name="poster" 
-          id="poster" 
-          placeholder="Poster" 
-          value = {formData.poster} 
-          defaultValue = {formData.Poster}
-          onChange={handlePoster}
-          required />
+       <h2 style={{width: '100%'}}> 
+         <mui.IconButton
+         onClick={()=>history.push('/')}
+         ><Icons.ArrowBackIos/>
+         </mui.IconButton>
+          {movies[editId].name} </h2>
+         <div className="movieCon-in-detail" style={{alignItems:"center", height:"80vh"}}>  
+         
+          <div className="content">
+              <img src={movies[editId].poster} alt={movies[editId].name} title={movies[editId].name} className="contentImg" />
+          </div>
+         <div className="TextField" >
+             <TextField
+              label="Movie Name"
+              variant="outlined"
+              value = {formData.name}
+              defaultValue = {formData.name}
+              type="text"
+              margin="normal"
+              className="inputs"
+              name="Movie name"
+              id="MovieName"
+              placeholder = 'Movie Name'
+              onChange={handleMovieName}
+              required/>
+             
+              <TextField
+              label="Poster Link"
+              variant="outlined"
+              type="url"
+               className="inputs"
+              margin="normal"
+              name="poster"
+              id="poster"
+              placeholder="Poster"
+              value = {formData.poster}
+              defaultValue = {formData.Poster}
+              onChange={handlePoster}
+              required />
+             
+                     <TextField
+              label="Trailer Link"
+              variant="outlined"
+              type="url"
+              className="inputs"
+              margin="normal"
+              name="trailer"
+              id="trailer"
+              placeholder="Trailer"
+              value = {formData.trailer}
+              defaultValue = {formData.trailer}
+              onChange={handleTrailer}
+              required />
+              <TextField
+              label="Summary"
+              variant="outlined"
+               className="inputs"
+              rows={4}
+              margin="normal"
+              multiline
+              value = {formData.summary}
+              name="summary"
+              defaultValue={formData.summary}
+              id="summary"
+              placeholder="summary"
+              onChange={handleSummary} />
+                     
+                     <div style={{display:"flex"}}> 
+                     <Button
+              margin="normal"
+              variant="outlined"
+              type = 'submit'
+              color="error"
+              sx={{margin:"1%"}}
+              onClick={()=>{history.push('/')}}
+               >Cancel</Button>
+              <Button
+              margin="normal"
+              variant="contained"
+              sx={{margin:"1%"}}
+              type = 'submit'
+              onClick={handleSubmit}
+               >Save</Button>
+                     </div>
+         </div>
 
-        <TextField 
-          label="Trailer Link" 
-          variant="outlined" 
-          type="url"
-          className="inputs" 
-          margin="normal"
-          name="trailer" 
-          id="trailer" 
-          placeholder="Trailer" 
-          value = {formData.trailer} 
-          defaultValue = {formData.trailer}
-          onChange={handleTrailer}
-          required />
-      
-          <TextField 
-          label="Summary" 
-          variant="outlined" 
-           className="inputs"
-          rows={4}
-          margin="normal"
-          multiline
-          value = {formData.summary} 
-          name="summary" 
-          defaultValue={formData.summary}
-          id="summary" 
-          placeholder="summary" 
-          onChange={handleSummary} />
-        
-          <Button 
-          margin="normal"
-          variant="outlined"
-          type = 'submit'
-          onClick={handleSubmit}
-           >Submit</Button>
            </div>
         </div>)
       }

@@ -16,12 +16,12 @@ const Button = mui.Button
 function MovieDetail({movies}) {
     const [show, setShow] = useState(false)
     const {movieId} = useParams()
-    let idVal = movieId<= movies.length? movies.filter(movie=>movie.id===movieId) : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]
+    let idVal = movieId<= movies.length? [{...movies[movieId], id: movieId}] : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]
     
     const [movie, setMovie] = useState(idVal)
 
     useEffect(() => {
-        idVal = movieId<= movies.length? movies.filter(movie=>movie.id===movieId) : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]
+        // idVal = movieId<= movies.length? [{...movies[movieId], id: movieId}] : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]
         setMovie(idVal)
      // eslint-disable-next-line
      }, [movieId])
@@ -70,7 +70,7 @@ function MovieDetail({movies}) {
        </div>
        <div  className="App-header-in-detail">
      {
-      movies.map(({id, name, poster,category,summary,watchOn})=>(
+      movies.map(({name, poster,category,summary,watchOn},id)=>(
        <div key={name}  id={id}  >
               <Accordion sx={{ backgroundColor: "transparent", color:"whitesmoke", border:"none", margin:"0px", boxShadow:"none"}}>
    <AccordionSummary 
@@ -86,7 +86,8 @@ function MovieDetail({movies}) {
          <div>
          <p>{name}</p>
          <p style={{color:"grey"}}>{category}</p>
-         </div></div> </Link> </div>
+         </div></div> </Link>
+          </div>
        </Typography>
    </AccordionSummary>
    <AccordionDetails>
