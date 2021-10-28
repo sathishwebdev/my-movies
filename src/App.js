@@ -12,6 +12,7 @@ import MovieDetail from './movieDetail';
 import { Route, Switch, useHistory } from 'react-router'
 import NotExists from './notExists';
 import { Link } from 'react-router-dom';
+import EditMovie from './editMovie';
 // import Splash from './splash'
 
 const Button = mui.Button;
@@ -28,6 +29,9 @@ function App(){
       <Route exact path='/movie/:movieId' >
         <MovieDetail movies = {movies} />
       </Route>
+      <Route exact path = '/edit/:editId'>
+        <EditMovie movies = {movies} setMovies = {setMovies} />
+      </Route>
       <Route path="**" >
        <NotExists />
       </Route>
@@ -40,18 +44,7 @@ function MovieList({movies, setMovies}) {
 
 const [show, setShow] = useState(false)
 const [movie, setMovie] = useState(null)
-const [edit, setEdit] = useState({
-  name : '',
-  poster: '',
-  summary: '',
-  id :11,
-  category :'',
-  genre :[''],
-  releaseDate :'',
-  watchOn :{link:'', name:''},
-  trailer :'',
-  counts :{likes:0, disLikes:0}
-})      
+    
 
 
 
@@ -66,16 +59,15 @@ const [edit, setEdit] = useState({
       <div className="App">
         <div  className="App-header">
           {
-           movies.map((movie, id)=>(
+           movies.map(({id,name,poster})=>(
       
-            <div key={movie.name} id={id} className="movieList">
-              {movie.id = id}
+            <div key={name} id={id} className="movieList">
               <div className="posterCon" >
-                <button style={{padding:"0", border: 'none'}} onClick = {()=>updateById({id, movie, setMovie, movies})}>  
-                <img src={movie.poster} className="poster" alt={movie.name} title={movie.name} />
+                <button style={{padding:"0", border: 'none'}} onClick = {()=>updateById({id , movie, setMovie, movies})}>  
+                <img src={poster} className="poster" alt={name} title={name} />
                 </button> 
               </div>
-              <p className="name">{movie.name}</p>
+              <p className="name">{name}</p>
             </div>
           ))}
         </div>
@@ -126,11 +118,12 @@ const [edit, setEdit] = useState({
               color='error'
               onClick={(e)=>{
                 e.preventDefault();
-               movies.delete(id)
+              
               alert( name + 'deleted')
               // let updatedId = id+1
               // updateById({ id: id=== movies.length ? id-1 : id+1 , movie, setMovie, movies})  
-              setMovie(null)
+              setMovies(movies.filter(data=> data.id !== id))
+              setMovie(movies.filter(data => data.id === (id === movies.length? "1" : id+1)))
               }}
               >
               <Icons.Delete/>  Delete
@@ -139,19 +132,15 @@ const [edit, setEdit] = useState({
               <Button
               color="info"
               variant="text"
-              onClick={()=>{
-                setEdit(movie)
-              }}
-              href="#newMovie"
-              >
-               <Icons.Edit/> Edit
+              ><Link to={`/edit/${id}`}>
+               <Icons.Edit/> Edit </Link>
               </Button>
             </div>
           </div>
         </div>
       ))}
       </div>}
-      <AddMovie movies = {movies} setMovies = {setMovies} editData = {edit}/>
+      <AddMovie movies = {movies} setMovies = {setMovies}/>
     </div>
   );
 }

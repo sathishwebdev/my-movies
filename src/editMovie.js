@@ -1,24 +1,15 @@
 import React,{useState} from 'react'
 import * as mui from '@mui/material'
 import TopIcon from '@mui/icons-material/KeyboardArrowUp';
-
+import { useParams } from 'react-router';
+import './App.css'
 
 const Button = mui.Button , TextField = mui.TextField ;
 
-function AddMovie(props) { 
+function EditMovie(props) { 
+    const {editId} = useParams()
        const [movies, setMovies] = [props.movies, props.setMovies]
-        const [formData, setFormData] = useState({
-          name : '',
-          poster: '',
-          summary: '',
-          id :movies.length ,
-          category :'',
-          genre :[''],
-          releaseDate :'',
-          watchOn :{link:'', name:''},
-          trailer :'',
-          counts :{likes:0, disLikes:0}
-        })
+        const [formData, setFormData] = useState(movies.filter(data=> data.id=== editId))
       
       
       //form handlers
@@ -49,7 +40,7 @@ function AddMovie(props) {
           name : '',
           poster: '',
           summary: '',
-          id :movies.length ,
+          id :movies.length,
           category :'',
           genre :[''],
           releaseDate :'',
@@ -73,7 +64,7 @@ function AddMovie(props) {
       // });
       
       
-        return(<div id="newMovie">
+        return(<div className="Splash" id="newMovie">
        
          <div className="TextField">  <h2 style={{width: '100%'}}>Add New Movie   <span style={{float:"right"}}>  <Button variant="contained" href="#movieList"><TopIcon /> Movie List</Button></span></h2>
          <TextField 
@@ -139,4 +130,4 @@ function AddMovie(props) {
       }
       
 
-export default AddMovie
+      export default EditMovie
