@@ -107,6 +107,19 @@ const [movie, setMovie] = useState(null)
                 >
                <TopIcon/> Read Less</Button></span> } </p>
               <p> Watch On <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" > {watchOn.name} </a></p>
+              <Button
+              variant="text"
+              color='error'
+              onClick={(e)=>{
+                e.preventDefault();
+               movies.delete(id - 1)
+              alert(movies.length + id-1 + name + 'deleted')
+              // let updatedId = id+1
+              updateById({id:id+1, movie, setMovie, movies})  
+              }}
+              >
+              <Icons.Delete/>  Delete
+              </Button>
             </div>
           </div>
         </div>
@@ -117,6 +130,15 @@ const [movie, setMovie] = useState(null)
   );
 }
 
+
+//delete
+
+Array.prototype.delete = function(val) {
+  var rest = this.slice((val) + 1 || this.length);
+  this.length = val < 0 ? this.length + val : val;
+  return this.push.apply(this, rest);
+};
+
 // update movie by id
 
 export const updateById = ({id, movie, setMovie, movies}) =>{
@@ -124,20 +146,20 @@ export const updateById = ({id, movie, setMovie, movies}) =>{
   temp[1] = temp[0] 
   temp[0] = id
   setMovie(movies.filter(data=>data.id === id))
-  const preSelectedEle = document.getElementById(temp[1])
-  const currentSelection = document.getElementById(temp[0])
+  // const preSelectedEle = document.getElementById(temp[1])
+  // const currentSelection = document.getElementById(temp[0])
  
-  //style for pre-selected - to unselect
-  preSelectedEle.style.border = "none"
-  preSelectedEle.style.backgroundColor= "transparent"
-  preSelectedEle.style.boxShadow="none"
-  preSelectedEle.style.padding = "2px"
-  // style for selected  
-  currentSelection.style.border = "1px grey solid"
-  currentSelection.style.borderRadius="5%"
-  currentSelection.style.backgroundColor="gray"
-  currentSelection.style.boxShadow="black 1px 2px 15px"
-  currentSelection.style.padding = "6px"
+  // //style for pre-selected - to unselect
+  // preSelectedEle.style.border = "none"
+  // preSelectedEle.style.backgroundColor= "transparent"
+  // preSelectedEle.style.boxShadow="none"
+  // preSelectedEle.style.padding = "2px"
+  // // style for selected  
+  // currentSelection.style.border = "1px grey solid"
+  // currentSelection.style.borderRadius="5%"
+  // currentSelection.style.backgroundColor="gray"
+  // currentSelection.style.boxShadow="black 1px 2px 15px"
+  // currentSelection.style.padding = "6px"
 
 }
 
