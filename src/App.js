@@ -209,8 +209,8 @@ const LikeCount = () => {
   setStatus('liked')
   setLike(like + 1)
   status === 'disliked'? setDisLike(disLike-1) : setDisLike(disLike)
-  movies[id-1]={...movies[id-1], counts :{likes: like+1, disLikes : status === 'disliked'? disLike-1 : disLike , status: 'liked'}}
-  console.log(movies[id-1].counts)
+  movies[id]={...movies[id], counts :{likes: like+1, disLikes : status === 'disliked'? disLike-1 : disLike , status: 'liked'}}
+  
 }
 
 const DisLikeCount = () =>{
@@ -219,8 +219,8 @@ const DisLikeCount = () =>{
   setStatus('disliked')
   setDisLike(disLike + 1)
   status ==='liked'? setLike(like-1) : setLike(like)
-  movies[id-1]={...movies[id-1], counts :{likes: status === 'liked'? like-1 : like, disLikes : disLike+1, status: 'disliked'}}
-  console.log(movies[id-1].counts)
+  movies[id]={...movies[id], counts :{likes: status === 'liked'? like-1 : like, disLikes : disLike+1, status: 'disliked'}}
+  
 }
 
   return <div>

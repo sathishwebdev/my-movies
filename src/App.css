@@ -102,6 +102,9 @@ a {
   background-color: #282c34;
   display: flex;
   flex-direction: row;
+  /* justify-content: center; */
+  margin-left: auto;
+  margin-right: auto;
   color: white;
   overflow-x: auto;
   /* width: 100%; */
@@ -217,4 +220,8 @@ a {
   .App-header-in-detail {
   width: 90%;
 }
+  .App-header{
+    margin-left: unset ;
+    margin-right: unset; 
+  }
 }
