@@ -49,7 +49,7 @@ function App(){
       >
       Movie List
       </Button>
-     <Button color="inherit" href="#newMovie"> <AddIcon /> Add movie</Button>
+     <Button color="inherit" href="/#newMovie"> <AddIcon /> Add movie</Button>
       <mui.IconButton
       onClick={()=>mode? setMode(false) : setMode(true)}
       color="inherit"
