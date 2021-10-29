@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import React, {useState} from 'react'
+import React, {createContext, useContext, useState} from 'react'
 import './App.css';
 import movieData from './movies.json' 
 import * as mui from '@mui/material'
@@ -16,37 +16,40 @@ import EditMovie from './editMovie';
 import AllMovies from './allMovies';
 // import Splash from './splash'
 
+export const context = createContext(null)
 const Button = mui.Button;
 var temp = ['1'] // helps us to detect and show selected data
 
 function App(){
   const [movies, setMovies] = useState(movieData)
-console.log(movies)
 
-  return(<div>
+  return(
+    <context.Provider value = {{movies: movies, setMovies: setMovies}}>
+  <div>
     <Switch>
-      <Route exact path = '/' children={<MovieList movies={movies} setMovies={setMovies}  />}></Route>
+      <Route exact path = '/' children={<MovieList  />}></Route>
         {/* <Route path="/movies" children={}></Route> */}
       <Route exact path = '/all'>
-        <AllMovies movies = {movies} setMovies={setMovies} />
+        <AllMovies  />
       </Route>
       <Route exact path='/movie/:movieId' >
-        <MovieDetail movies = {movies} />
+        <MovieDetail/>
       </Route>
       <Route exact path = '/edit/:editId'>
-        <EditMovie movies = {movies} setMovies = {setMovies} />
+        <EditMovie  />
       </Route>
-      
       <Route path="**" >
        <NotExists />
       </Route>
     </Switch>
-</div>)
-}
+</div>
+</context.Provider>
+)}
 
 
-function MovieList({movies, setMovies}) {
+function MovieList() {
 
+const {movies, setMovies} = useContext(context)
 const [show, setShow] = useState(false)
 const [movie, setMovie] = useState([{...movies[0], id: 0}])
 let history = useHistory()
@@ -113,9 +116,13 @@ for(let i = 0; i < listNo; i++){
             <div className="content "> 
                
               <Counter id={id} movies = {movies} stat={counts.status} likes = {counts.likes} dislikes = {counts.disLikes} />
+              {/* info button */}
+               <mui.IconButton
+               color="info" 
+               onClick={()=>history.push("/movie/"+id)} > <Icons.Info/> 
+               </mui.IconButton>
 
-              {/* <p> <a href={`https:youtu.be/${trailer.split("/")[trailer.split("/").length-1]}`} className="App-link"> Watch Trailer  </a></p> */}
-              <p> <Link className="App-link" to={"/movie/"+id} > <Icons.Info/> </Link></p>
+               {/* contents  */}
               <p> category :  {category} </p>
               <p> Release Date : {releaseDate} </p>
               <p> Genre : {genre.join(", ")}</p>

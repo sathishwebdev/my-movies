@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import {useParams } from 'react-router'
 import {BackBtn, HomeBtn} from './App'
 import * as mui from '@mui/material'
@@ -11,9 +11,11 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {context} from './App'
 
 const Button = mui.Button
-function MovieDetail({movies}) {
+function MovieDetail() {
+  const {movies, setMovies} = useContext(context)
     const [show, setShow] = useState(false)
     const {movieId} = useParams()
     let idVal = movieId<= movies.length? [{...movies[movieId], id: movieId}] : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]

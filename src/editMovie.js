@@ -1,14 +1,15 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import * as mui from '@mui/material'
 import * as Icons from '@mui/icons-material';
 import { useHistory, useParams } from 'react-router';
 import './App.css'
+import {context} from './App'
 
 const Button = mui.Button , TextField = mui.TextField ;
 
-function EditMovie(props) { 
+function EditMovie() { 
+  const {movies, setMovies} = useContext(context)
     const {editId} = useParams()
-       const [movies, setMovies] = [props.movies, props.setMovies]
        const [formData, setFormData] = useState(movies[editId])
         let history = useHistory()    
 

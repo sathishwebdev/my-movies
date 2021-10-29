@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import TopIcon from '@mui/icons-material/KeyboardArrowUp';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -12,9 +12,10 @@ import Button from '@mui/material/Button';
 import './App.css';
 import { Counter } from './App';
 import {useHistory} from 'react-router'
+import {context} from './App'
 
-function AllMovies({movies, setMovies}) {
-
+function AllMovies() {
+  const {movies, setMovies} = useContext(context)
     let history = useHistory()
     
     return (
