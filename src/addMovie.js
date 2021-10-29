@@ -73,7 +73,7 @@ function AddMovie(props) {
       // });
       
       
-        return(<div id="newMovie">
+        return(<div id="newMovie" style={{maxWidth:"800px", marginLeft:"auto", marginRight:"auto"}}>
        
          <div className="TextField">  <h2 style={{width: '100%'}}>Add New Movie   <span style={{float:"right"}}>  <Button variant="contained" href="#movieList"><TopIcon /> Movie List</Button></span></h2>
          <TextField 

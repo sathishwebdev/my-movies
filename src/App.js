@@ -65,10 +65,10 @@ for(let i = 0; i < listNo; i++){
 
   return (
     <div id="movieList" style={{textAlign: 'center',color: 'white'}}>
-      <h1>My Movies   
+     <div className="App"> <h1>My Movies   
    <span style={{float:"right"}}><Button variant="contained" href="#newMovie"> <AddIcon /> Add movie</Button></span></h1>
       {/* Showing Movie List */}
-      <div className="App">
+      
         <div  className="App-header">
           {
          
@@ -119,7 +119,7 @@ for(let i = 0; i < listNo; i++){
               {/* info button */}
                <mui.IconButton
                color="info" 
-               onClick={()=>history.push("/movie/"+id)} > <Icons.Info/> 
+               onClick={()=>history.push("/movie/"+id)} >  <Icons.Info/> 
                </mui.IconButton>
 
                {/* contents  */}

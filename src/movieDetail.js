@@ -31,7 +31,7 @@ function MovieDetail() {
     const [{id,name, poster,trailer, category, watchOn, summary, releaseDate, genre, counts}] = movie
      console.log(movieId<=movies.length)
     return (<div>
-       {movieId <= movies.length ? <div id={id} className="App" >
+       {movieId <= movies.length ? <div id={id} className="Ap" >
        <h2 style={{margin: '1px', padding:'0px', textAlign:"left"}} ><BackBtn/> <HomeBtn/> {name}</h2>
        {/* video   */}
        <iframe width="100%" height = "400px"  src={`${trailer}?controls=1&autoplay=0`} title={`${name}'s Trailer'`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
