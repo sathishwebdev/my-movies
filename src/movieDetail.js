@@ -74,9 +74,9 @@ function MovieDetail() {
      {
       movies.map(({name, poster,category,summary,watchOn},id)=>(
        <div key={name}  id={id}  >
-              <Accordion sx={{ backgroundColor: "transparent", color:"whitesmoke", border:"none", margin:"0px", boxShadow:"none"}}>
+              <Accordion sx={{ backgroundColor: "transparent", border:"none", margin:"0px", boxShadow:"none"}}>
    <AccordionSummary 
-       expandIcon={<ExpandMoreIcon sx={{color:"whitesmoke", margin:"0px"}} />}
+       expandIcon={<ExpandMoreIcon sx={{ margin:"0px"}} />}
    >
      <Typography sx={{ width: '100%', flexShrink: 0, border:"none",  }}>
          <div>

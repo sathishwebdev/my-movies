@@ -82,6 +82,7 @@ function AddMovie(props) {
           value = {formData.name}
           type="text" 
           margin="normal"
+          inputMode="text"
           className="inputs"
           name="Movie name" 
           id="MovieName" 
@@ -93,7 +94,8 @@ function AddMovie(props) {
           label="Poster Link" 
           variant="outlined" 
           type="url"
-           className="inputs" 
+          inputMode="url"
+          className="inputs" 
           margin="normal"
           name="poster" 
           id="poster" 
@@ -106,6 +108,7 @@ function AddMovie(props) {
           label="Trailer Link" 
           variant="outlined" 
           type="url"
+          inputMode="url"
           className="inputs" 
           margin="normal"
           name="trailer" 
@@ -117,8 +120,9 @@ function AddMovie(props) {
       
           <TextField 
           label="Summary" 
-          variant="outlined" 
-           className="inputs"
+          variant="outlined"
+          color="info"
+          className="inputs"
           rows={4}
           margin="normal"
           multiline

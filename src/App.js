@@ -15,6 +15,8 @@ import { Link } from 'react-router-dom';
 import EditMovie from './editMovie';
 import AllMovies from './allMovies';
 // import Splash from './splash'
+import { ThemeProvider, useTheme, createTheme } from '@mui/material/styles';
+import { Box } from '@mui/system';
 
 export const context = createContext(null)
 const Button = mui.Button;
@@ -22,28 +24,64 @@ var temp = ['1'] // helps us to detect and show selected data
 
 function App(){
   const [movies, setMovies] = useState(movieData)
+  const [mode, setMode] = useState(true)
+  const history = useHistory()
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: mode?'dark':'light',
+    },
+  });
   return(
+    <ThemeProvider theme={darkTheme}>
+      <mui.Paper style={{color:"black", minHeight:"100vh"}} elevation={2}>
     <context.Provider value = {{movies: movies, setMovies: setMovies}}>
   <div>
-    <Switch>
-      <Route exact path = '/' children={<MovieList  />}></Route>
-        {/* <Route path="/movies" children={}></Route> */}
-      <Route exact path = '/all'>
-        <AllMovies  />
-      </Route>
-      <Route exact path='/movie/:movieId' >
-        <MovieDetail/>
-      </Route>
-      <Route exact path = '/edit/:editId'>
-        <EditMovie  />
-      </Route>
-      <Route path="**" >
-       <NotExists />
-      </Route>
-    </Switch>
+    <Box>
+    <mui.AppBar color="warning" position="static" >
+    <mui.Toolbar>
+      <HomeBtn />
+      <Button
+      color="inherit"
+      startIcon={<Icons.List/>}
+      onClick={()=>history.push("/all")}
+      >
+      Movie List
+      </Button>
+     <Button color="inherit" href="#newMovie"> <AddIcon /> Add movie</Button>
+      <mui.IconButton
+      onClick={()=>mode? setMode(false) : setMode(true)}
+      color="inherit"
+      sx={{marginRight:"1px"}}
+      >
+        {mode? <Icons.DarkMode/> :<Icons.LightMode/> }
+      </mui.IconButton>
+    </mui.Toolbar>
+    </mui.AppBar>
+    </Box>
+
+    <div >
+      <Switch>
+        <Route exact path = '/' children={<MovieList  />}></Route>
+          {/* <Route path="/movies" children={}></Route> */}````````
+        <Route exact path = '/all'>
+          <AllMovies  />
+        </Route>
+        <Route exact path='/movie/:movieId' >
+          <MovieDetail/>
+        </Route>
+        <Route exact path = '/edit/:editId'>
+          <EditMovie  />
+        </Route>
+        <Route path="**" >
+         <NotExists />
+        </Route>
+      </Switch>
+    </div>
 </div>
 </context.Provider>
+</mui.Paper>
+</ThemeProvider>
 )}
 
 
@@ -64,9 +102,8 @@ for(let i = 0; i < listNo; i++){
  //add movie (temperary)
 
   return (
-    <div id="movieList" style={{textAlign: 'center',color: 'white'}}>
-     <div className="App"> <h1>My Movies   
-   <span style={{float:"right"}}><Button variant="contained" href="#newMovie"> <AddIcon /> Add movie</Button></span></h1>
+    <div id="movieList" style={{textAlign: 'center'}}>
+     <div className="App"> <h1>My Movies</h1>
       {/* Showing Movie List */}
       
         <div  className="App-header">
@@ -271,10 +308,10 @@ const DisLikeCount = () =>{
 
 export const BackBtn = () =>{
   let history = useHistory()
-  return <mui.IconButton onClick={()=>history.goBack()} ><Icons.ArrowBackIos/> </mui.IconButton> }
+  return <mui.IconButton color="inherit" onClick={()=>history.goBack()} ><Icons.ArrowBackIos/> </mui.IconButton> }
 
 export const HomeBtn = () =>{
   let history = useHistory()
-  return <mui.IconButton onClick={()=>history.push('/')} ><Icons.Home/> </mui.IconButton> }  
+  return <mui.IconButton color="inherit" onClick={()=>history.push('/')} ><Icons.Home /> </mui.IconButton> }  
 
 export default App;

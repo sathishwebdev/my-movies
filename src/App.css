@@ -1,7 +1,7 @@
 .App {
   font-size: normal;
   display: flex;
-  color: whitesmoke;
+  /* color: whitesmoke; */
   flex-direction: column;
   /* align-items: center;  */
  /* justify-content: center; */
@@ -10,7 +10,7 @@
   max-width: 800px;
 }
 html {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
@@ -83,10 +83,10 @@ a {
   width: 100%;
 }
 .App-header-in-detail {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   display: flex;
   flex-direction: column;
-  color: white;
+  /* color: white; */
   /* overflow-x: auto; */
   width: 25%;
   
@@ -101,32 +101,32 @@ a {
 
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   display: flex;
   flex-direction: row;
   /* justify-content: center; */
   margin-left: auto;
   margin-right: auto;
-  color: white;
+  /* color: white; */
   overflow-x: auto;
   /* width: 100%; */
 }
 
 .movieList {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   display: flex;
   flex-direction: column;
-  color: white;
+  /* color: white; */
   margin: 1%;
   /* justify-content: center; */
   width: 120px;
   text-align: left;
 }
 .movieList-in-detail {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   display: flex;
   flex-direction: row;
-  color: white;
+  /* color: white; */
   /* margin: 1%; */
   align-items: center;
   /* justify-content: center; */
@@ -188,17 +188,17 @@ a {
 }
 
 .inputs{
-  color: whitesmoke;
+  /* color: whitesmoke; */
   width: 70%;
 }
 
 .splash{
-  background-color: #282c34;
+  /* background-color: #282c34; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  /* color: white; */
   width: 100%;
   height: 100vh;
   font-size: 50px;
