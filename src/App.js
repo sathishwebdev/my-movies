@@ -9,7 +9,7 @@ import * as Icons from '@mui/icons-material';
 import AddMovie from './addMovie';
 import MovieDetail from './movieDetail';
 // import {Link} from 'react-router-dom'
-import { Route, Switch, useHistory } from 'react-router'
+import { Route, Switch, useHistory, useLocation } from 'react-router'
 import NotExists from './notExists';
 import { Link } from 'react-router-dom';
 import EditMovie from './editMovie';
@@ -26,7 +26,7 @@ function App(){
   const [movies, setMovies] = useState(movieData)
   const [mode, setMode] = useState(true)
   const history = useHistory()
-
+  const location = useLocation()
   const darkTheme = createTheme({
     palette: {
       mode: mode?'dark':'light',
@@ -34,12 +34,13 @@ function App(){
   });
   return(
     <ThemeProvider theme={darkTheme}>
-      <mui.Paper style={{color:"black", minHeight:"100vh"}} elevation={2}>
+      <mui.Paper style={{ minHeight:"100vh", paddingBottom:"6px"}} elevation={2}>
     <context.Provider value = {{movies: movies, setMovies: setMovies}}>
   <div>
     <Box>
     <mui.AppBar color="warning" position="static" >
     <mui.Toolbar>
+      {location.pathname === '/'? <span></span> : <BackBtn /> }
       <HomeBtn />
       <Button
       color="inherit"
@@ -52,7 +53,7 @@ function App(){
       <mui.IconButton
       onClick={()=>mode? setMode(false) : setMode(true)}
       color="inherit"
-      sx={{marginRight:"1px"}}
+      sx={{marginLeft:"auto"}}
       >
         {mode? <Icons.DarkMode/> :<Icons.LightMode/> }
       </mui.IconButton>

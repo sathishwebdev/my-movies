@@ -19,7 +19,7 @@ function AllMovies() {
     let history = useHistory()
     
     return (
-        <div><BackBtn/><HomeBtn />
+        <div style={{padding:"2%"}}>
           <div className="splash" style={{justifyContent:"normal"}}>
             
           
@@ -27,11 +27,11 @@ function AllMovies() {
                {
                 movies.map(({name, poster,category,summary,watchOn, counts},id)=>(
                  <div key={name}  id={id}  >
-                <Accordion sx={{ color:"whitesmoke", border:"none", margin:"0px", boxShadow:"none"}}>
+                <Accordion sx={{border:"none", margin:"0px", boxShadow:"none"}}>
              <AccordionSummary 
-                 expandIcon={<ExpandMoreIcon sx={{color:"whitesmoke", margin:"0px"}} />}
+                 expandIcon={<ExpandMoreIcon sx={{ margin:"0px"}} />}
              >
-               <Typography sx={{  width: '100%', flexShrink: 0, border:"none",  }}>
+               <Typography sx={{  width: '100%', border:"none",  }}>
            <div><Link className="App-link" to ={`/movie/${id}/#${id}`}>
            <div className="movieList-in-detail"><div className="posterCon-in-detail" >
           
@@ -84,7 +84,8 @@ function AllMovies() {
            
      ))}
    </div>
-        </div></div>
+    </div>
+</div>
     )
 }
 

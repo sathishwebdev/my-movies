@@ -32,11 +32,11 @@ function MovieDetail() {
      console.log(movieId<=movies.length)
     return (<div>
        {movieId <= movies.length ? <div id={id} className="Ap" >
-       <h2 style={{margin: '1px', padding:'0px', textAlign:"left"}} ><BackBtn/> <HomeBtn/> {name}</h2>
+       
        {/* video   */}
        <iframe width="100%" height = "400px"  src={`${trailer}?controls=1&autoplay=0`} title={`${name}'s Trailer'`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
 
-   <div  key={id}>
+   <div className="App" key={id}>
      <h1 className="name">{name}</h1>
      <div  className="movieCon-in-detail "> 
        <div className="container">
@@ -68,13 +68,13 @@ function MovieDetail() {
            onClick = {(e)=>setShow(false) }
            >
           <TopIcon/> Read Less</Button></span> } </p>
-         <p> Watch On <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" > {watchOn.name} </a></p>
+          {watchOn.name?<p>  Watch On <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" > watchOn </a></p> : <span></span> } 
        </div>
        <div  className="App-header-in-detail">
      {
       movies.map(({name, poster,category,summary,watchOn},id)=>(
        <div key={name}  id={id}  >
-              <Accordion sx={{ backgroundColor: "transparent", border:"none", margin:"0px", boxShadow:"none"}}>
+              <Accordion sx={{border:"none", margin:"0px", boxShadow:"none"}}>
    <AccordionSummary 
        expandIcon={<ExpandMoreIcon sx={{ margin:"0px"}} />}
    >
@@ -95,7 +95,7 @@ function MovieDetail() {
    <AccordionDetails>
      <Typography>
       <div>
-          <p> Watch On <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" > {watchOn.name} </a></p>
+      {watchOn.name?<p>  Watch On <a className="App-link" href={watchOn.link} target="_blank" rel="noopener noreferrer" > watchOn </a></p> : <span></span> } 
           {summary}
       </div>
      </Typography>
