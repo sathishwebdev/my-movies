@@ -18,7 +18,6 @@ function AddMovie(props) {
       }
 
       //form handlers
-     
     
     
       
@@ -47,8 +46,11 @@ function AddMovie(props) {
             trailer :'',
             counts :{likes:0, disLikes:0}
           }}
+          onSubmit={({values})=>{
+            postData(values)
+          }}
           >
-           { ({values,handleChange, handleBlur})=> (
+           { ({values,handleChange, handleBlur, handleSubmit})=> (
            <form>
              <TextField
                 label="Movie Name"
@@ -111,12 +113,17 @@ function AddMovie(props) {
                 name="summary"
                 id="summary"
                 placeholder="summary" />
+                
+                <br/>
              
                 <Button
-                margin="normal"
                 variant="outlined"
                 type = 'submit'
-                >Submit</Button>
+                onClick={handleSubmit}
+                sx={{margin:"3%"}}
+                >
+                  Submit
+                </Button>
            </form>
 )}  
         </Formik>
