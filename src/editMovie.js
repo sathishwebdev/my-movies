@@ -1,18 +1,37 @@
-import React,{useContext, useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import * as mui from '@mui/material'
 import * as Icons from '@mui/icons-material';
 import { useHistory, useParams } from 'react-router';
 import './App.css'
-import {context} from './App'
+import { BASE_URL } from './App';
+
 
 const Button = mui.Button , TextField = mui.TextField ;
 
 function EditMovie() { 
-  const {movies, setMovies} = useContext(context)
-    const {editId} = useParams()
-       const [formData, setFormData] = useState(movies[editId])
-        let history = useHistory()    
+  const {editId} = useParams()
 
+  const [movie, setMovie] = useState()
+  const [formData, setFormData] = useState({
+    name : '',
+    poster: '',
+    summary: '',
+    category :'',
+    genre :[''],
+    releaseDate :'',
+    watchOn :{link:'', name:''},
+    trailer :'',
+    counts :{likes:0, disLikes:0}
+  })
+  useEffect(()=>{
+    fetch(`https://6188a6b1d0821900178d742d.mockapi.io/movies/${editId}`).then(data=> data.json()).then(data=>{
+      setMovie(data)
+      setFormData(data)
+    } )
+  },[])
+  
+  let history = useHistory()    
+  
        //form handlers
       
       const handleMovieName = (e)=> {
@@ -35,13 +54,19 @@ function EditMovie() {
       
       const handleSubmit = (e) => {
       e.preventDefault();
-        movies[editId] = {...formData}
+        // movies[editId] = {...formData}
+
+        fetch(`${BASE_URL}/movies/${editId}`, {
+          method : "PUT",
+          body: JSON.stringify(formData),
+          headers: {"Content-Type":"application/json"}
+
+        })
      
         setFormData({
           name : '',
           poster: '',
           summary: '',
-          id :movies.length,
           category :'',
           genre :[''],
           releaseDate :'',
@@ -60,11 +85,11 @@ function EditMovie() {
          onClick={()=>history.push('/')}
          ><Icons.ArrowBackIos/>
          </mui.IconButton>
-          {movies[editId].name} </h2>
+          {movie? movie.name : ''} </h2>
          <div className="movieCon-in-detail" style={{alignItems:"center", height:"80vh"}}>  
          
           <div className="content">
-              <img src={movies[editId].poster} alt={movies[editId].name} title={movies[editId].name} className="contentImg" />
+              <img src={movie? movie.poster: ''} alt={movie? movie.name : ''} title={movie? movie.name : ''} className="contentImg" />
           </div>
          <div className="TextField" >
              <TextField

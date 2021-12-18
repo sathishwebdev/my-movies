@@ -1,143 +1,125 @@
 import React,{useState} from 'react'
 import * as mui from '@mui/material'
 import TopIcon from '@mui/icons-material/KeyboardArrowUp';
+import {Formik} from 'formik';
 
 
 const Button = mui.Button , TextField = mui.TextField ;
 
 function AddMovie(props) { 
-       const [movies, setMovies] = [props.movies, props.setMovies]
-        const [formData, setFormData] = useState({
-          name : '',
-          poster: '',
-          summary: '',
-          id :movies.length ,
-          category :'',
-          genre :[''],
-          releaseDate :'',
-          watchOn :{link:'', name:''},
-          trailer :'',
-          counts :{likes:0, disLikes:0}
-        })
       
-      
-      //form handlers
-      
-      const handleMovieName = (e)=> {
-        e.preventDefault();
-        setFormData({...formData,name: e.target.value})
-        }
-      
-      const handlePoster =(e)=> {
-        e.preventDefault()
-        setFormData( {...formData, poster: e.target.value})
-        }  
-      
-      const handleSummary = (e)=> {
-        e.preventDefault()
-        setFormData( {...formData, summary: e.target.value})}
-        
-        const handleTrailer = (e)=> {
-            e.preventDefault()
-            setFormData( {...formData, trailer: e.target.value})}
-      
-      const handleSubmit = (e) => {
-      e.preventDefault();
-        setMovies([...movies, formData]);
-      
-        setFormData({
-          name : '',
-          poster: '',
-          summary: '',
-          id :movies.length ,
-          category :'',
-          genre :[''],
-          releaseDate :'',
-          watchOn :{link:'', name:''},
-          trailer :'',
-          counts :{likes:0, disLikes:0}
+      const postData = (data) =>{
+        fetch("https://6188a6b1d0821900178d742d.mockapi.io/movies/", {
+          method : "POST",
+          body: JSON.stringify(data),
+          headers: {"Content-Type":"application/json"}
+
         })
       }
-      
-      // const Input = styled(TextField)({
-        
-      //   '& .MuiOutlinedInput-root': {
-      //     '& fieldset': {
-      //       borderColor: 'white',
-      //     },
-      //     '&:hover fieldset': {
-      //       borderColor: '#10a3ce',
-      //     },
-          
-      //   },
-      // });
-      
+
+      //form handlers
+     
+    
+    
       
         return(<div id="newMovie" style={{maxWidth:"800px", marginLeft:"auto", marginRight:"auto"}}>
        
-         <div className="TextField">  <h2 style={{width: '100%'}}>Add New Movie   <span style={{float:"right"}}>  <Button variant="contained" href="#movieList"><TopIcon /> Movie List</Button></span></h2>
-         <TextField 
-          label="Movie Name" 
-          variant="outlined" 
-          value = {formData.name}
-          type="text" 
-          margin="normal"
-          inputMode="text"
-          className="inputs"
-          name="Movie name" 
-          id="MovieName" 
-          placeholder = 'Movie Name' 
-          onChange={handleMovieName}
-          required/>
-          
-          <TextField 
-          label="Poster Link" 
-          variant="outlined" 
-          type="url"
-          inputMode="url"
-          className="inputs" 
-          margin="normal"
-          name="poster" 
-          id="poster" 
-          placeholder="Poster" 
-          value = {formData.poster} 
-          onChange={handlePoster}
-          required />
+         <div className="TextField"> 
+          <h2 style={{width: '100%'}}>
+            Add New Movie 
+            <span style={{float:"right"}}> 
+              <Button 
+                variant="contained"
+                href="#movieList">
+                <TopIcon /> Movie List
+              </Button>
+            </span>
+          </h2>
+          <Formik
+          initialValues={{
+            name : '',
+            poster: '',
+            summary: '',
+            category :'',
+            genre :[''],
+            releaseDate :'',
+            watchOn :{link:'', name:''},
+            trailer :'',
+            counts :{likes:0, disLikes:0}
+          }}
+          >
+           { ({values,handleChange, handleBlur})=> (
+           <form>
+             <TextField
+                label="Movie Name"
+                variant="outlined"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value = {values.name}
+                type="text"
+                margin="normal"
+                inputMode="text"
+                className="inputs"
+                name="Movie name"
+                id="MovieName"
+                placeholder = 'Movie Name'
+                required/>
+             
+                <TextField
+                label="Poster Link"
+                variant="outlined"
+                type="url"
+                inputMode="url"
+                className="inputs"
+                margin="normal"
+                name="poster"
+                id="poster"
+                placeholder="Poster"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value = {values.poster}
+                
+                required />
 
-        <TextField 
-          label="Trailer Link" 
-          variant="outlined" 
-          type="url"
-          inputMode="url"
-          className="inputs" 
-          margin="normal"
-          name="trailer" 
-          id="trailer" 
-          placeholder="Trailer" 
-          value = {formData.trailer} 
-          onChange={handleTrailer}
-          required />
-      
-          <TextField 
-          label="Summary" 
-          variant="outlined"
-          color="info"
-          className="inputs"
-          rows={4}
-          margin="normal"
-          multiline
-          value = {formData.summary} 
-          name="summary" 
-          id="summary" 
-          placeholder="summary" 
-          onChange={handleSummary} />
-        
-          <Button 
-          margin="normal"
-          variant="outlined"
-          type = 'submit'
-          onClick={handleSubmit}
-           >Submit</Button>
+              <TextField
+                label="Trailer Link"
+                variant="outlined"
+                type="url"
+                inputMode="url"
+                className="inputs"
+                margin="normal"
+                name="trailer"
+                id="trailer"
+                placeholder="Trailer"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value = {values.trailer}
+                
+                required />
+
+                <TextField
+                label="Summary"
+                variant="outlined"
+                color="info"
+                className="inputs"
+                rows={4}
+                margin="normal"
+                multiline
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value = {values.summary}
+                name="summary"
+                id="summary"
+                placeholder="summary" />
+             
+                <Button
+                margin="normal"
+                variant="outlined"
+                type = 'submit'
+                >Submit</Button>
+           </form>
+)}  
+        </Formik>
            </div>
         </div>)
       }

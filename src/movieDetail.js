@@ -18,20 +18,32 @@ function MovieDetail() {
   const {movies, setMovies} = useContext(context)
     const [show, setShow] = useState(false)
     const {movieId} = useParams()
-    let idVal = movieId<= movies.length? [{...movies[movieId], id: movieId}] : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]
+    const [movie, setMovie] = useState(null)
+    useEffect(()=>{
+      fetch(`https://6188a6b1d0821900178d742d.mockapi.io/movies/${movieId}`)
+      .then(data=> data.json()).
+      then(data=> {
+        setMovie([data])
+        console.log(data);
+      })
+  
+    },[movieId])
+    // let idVal = movieId<= movies.length? [{...movies[movieId], id: movieId}] : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]
     
-    const [movie, setMovie] = useState(idVal)
+    //
 
-    useEffect(() => {
-        // idVal = movieId<= movies.length? [{...movies[movieId], id: movieId}] : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]
-        setMovie(idVal)
-     // eslint-disable-next-line
-     }, [movieId])
+    // useEffect(() => {
+    //     // idVal = movieId<= movies.length? [{...movies[movieId], id: movieId}] : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]
+    //     setMovie(idVal)
+    //  // eslint-disable-next-line
+    //  }, [movieId])
 
-    const [{id,name, poster,trailer, category, watchOn, summary, releaseDate, genre, counts}] = movie
-     console.log(movieId<=movies.length)
+    const [{id,name, poster,trailer, category, watchOn, summary, releaseDate, genre, counts}] = movie !== null? movie : [{id:"",name:"", poster:"",trailer:"", category:"", watchOn:"", summary:"", releaseDate:"", genre:"", counts:""}]
+    //  console.log(movieId<=movies.length)
     return (<div>
-       {movieId <= movies.length ? <div id={id} className="Ap" >
+       { 
+       movie !== null ?
+       <div id={id} className="Ap" >
        
        {/* video   */}
        <iframe width="100%" height = "400px"  src={`${trailer}?controls=1&autoplay=0`} title={`${name}'s Trailer'`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
@@ -72,7 +84,7 @@ function MovieDetail() {
        </div>
        <div  className="App-header-in-detail">
      {
-      movies.map(({name, poster,category,summary,watchOn},id)=>(
+      movies.map(({name, poster,category,summary,watchOn,id})=>(
        <div key={name}  id={id}  >
               <Accordion sx={{border:"none", margin:"0px", boxShadow:"none"}}>
    <AccordionSummary 
@@ -109,7 +121,7 @@ function MovieDetail() {
    </div>
 
    </div>
-: <div><p>No id founded</p></div>
+: <div><p>Loading...</p></div>
 }   </div>  )
 }
 

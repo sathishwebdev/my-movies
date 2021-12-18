@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import TopIcon from '@mui/icons-material/KeyboardArrowUp';
+import React, { useContext , useEffect} from 'react'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -10,14 +9,28 @@ import * as Icons from '@mui/icons-material'
 import * as mui from '@mui/material'
 import Button from '@mui/material/Button';
 import './App.css';
-import { BackBtn, Counter, HomeBtn } from './App';
+import {Counter } from './App';
 import {useHistory} from 'react-router'
 import {context} from './App'
 
 function AllMovies() {
   const {movies, setMovies} = useContext(context)
     let history = useHistory()
-    
+    const deleteMovie = (id) => {
+      console.log(id);
+      fetch(`https://6188a6b1d0821900178d742d.mockapi.io/movies/${id}`, {
+        method : "DELETE"
+      })
+    }
+
+    const getMovies = (setMovies)=>{
+      fetch("https://6188a6b1d0821900178d742d.mockapi.io/movies")
+      .then(data=> data.json()).
+      then(data=> {
+        setMovies(data)
+      })
+    }
+    useEffect(()=>{getMovies(setMovies)},[])
     return (
         <div style={{padding:"2%"}}>
           <div className="splash" style={{justifyContent:"normal"}}>
@@ -25,7 +38,7 @@ function AllMovies() {
           
               <div  className="App-header-in-detail" style={{maxWidth:"600px", width:"auto"}}>
                {
-                movies.map(({name, poster,category,summary,watchOn, counts},id)=>(
+               movies? movies.map(({name, poster,category,summary,watchOn, counts,id})=>(
                  <div key={name}  id={id}  >
                 <Accordion sx={{border:"none", margin:"0px", boxShadow:"none"}}>
              <AccordionSummary 
@@ -47,7 +60,7 @@ function AllMovies() {
            <p style={{color:"grey"}}>{category}</p>
            </div>
            </div></Link>
-          <Counter id={id} movies = {movies} stat={counts.status} likes = {counts.likes} dislikes = {counts.disLikes} />
+          <Counter id={id} movies = {movies} stat={counts.status} likes = {counts.likes} dislikes = {counts.disLikes} setMovies = {setMovies}/>
            </div>
                  </Typography>
              </AccordionSummary>
@@ -62,9 +75,9 @@ function AllMovies() {
                 color='error'
                 onClick={(e)=>{
                   e.preventDefault();
-                console.log(movies.filter((data, index)=> index !== id))
-                alert(` ${name} deleted`)
-                setMovies(movies.filter((ele, index)=> id !== index))
+                  deleteMovie(id)
+                  alert("deleted")
+                  getMovies(setMovies)
                 }}
                 >
                 <Icons.Delete/>  Delete
@@ -82,7 +95,7 @@ function AllMovies() {
            </Accordion>
            </div>
            
-     ))}
+     )): ''}
    </div>
     </div>
 </div>

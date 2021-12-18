@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import React, {createContext, useContext, useState} from 'react'
+import React, {createContext, useContext, useEffect, useState} from 'react'
 import './App.css';
 import movieData from './movies.json' 
 import * as mui from '@mui/material'
@@ -17,13 +17,32 @@ import AllMovies from './allMovies';
 // import Splash from './splash'
 import { ThemeProvider, useTheme, createTheme } from '@mui/material/styles';
 import { Box } from '@mui/system';
+import FormikForm from './formikForm';
+
+export const BASE_URL = "https://6188a6b1d0821900178d742d.mockapi.io"
 
 export const context = createContext(null)
 const Button = mui.Button;
 var temp = ['1'] // helps us to detect and show selected data
+const getMovies = (setMovies)=>{
+  fetch(`${BASE_URL}/movies`)
+  .then(data=> data.json()).
+  then(data=> {
+    setMovies(data)
+    console.log(movieData);
 
+  })
+}
+
+const deleteMovie = (id) => {
+  console.log(id);
+  fetch(`${BASE_URL}/movies/${id}`, {
+    method : "DELETE"
+  })
+}
 function App(){
-  const [movies, setMovies] = useState(movieData)
+  
+  const [movies, setMovies] = useState(null)
   const [mode, setMode] = useState(true)
   const history = useHistory()
   const location = useLocation()
@@ -32,6 +51,9 @@ function App(){
       mode: mode?'dark':'light',
     },
   });
+
+ 
+  useEffect( ()=>{getMovies(setMovies) },[])
   return(
     <ThemeProvider theme={darkTheme}>
       <mui.Paper style={{ minHeight:"100vh", paddingBottom:"6px"}} elevation={2}>
@@ -64,15 +86,18 @@ function App(){
     <div >
       <Switch>
         <Route exact path = '/' children={<MovieList  />}></Route>
-          {/* <Route path="/movies" children={}></Route> */}````````
+          {/* <Route path="/movies" children={}></Route> */}
         <Route exact path = '/all'>
-          <AllMovies  />
+          <AllMovies />
         </Route>
         <Route exact path='/movie/:movieId' >
           <MovieDetail/>
         </Route>
         <Route exact path = '/edit/:editId'>
           <EditMovie  />
+        </Route>
+        <Route exact path = '/formik'>
+          <FormikForm  />
         </Route>
         <Route path="**" >
          <NotExists />
@@ -90,11 +115,11 @@ function MovieList() {
 
 const {movies, setMovies} = useContext(context)
 const [show, setShow] = useState(false)
-const [movie, setMovie] = useState([{...movies[0], id: 0}])
+const [movie, setMovie] = useState(null)
 let history = useHistory()
-
+console.log(movie);
 var HMovieList = []
-let listNo = movies.length > 8 ? 5 : 2
+let listNo = movies?( movies.length > 5 ? 4 : movies.length ): 0
 for(let i = 0; i < listNo; i++){
   HMovieList.push(movies[i])
 }
@@ -109,7 +134,7 @@ for(let i = 0; i < listNo; i++){
       
         <div  className="App-header">
           {
-         
+         movies?
            HMovieList.map(({name,poster},id)=>(
       
             <div key={name} id={id} className="movieList">
@@ -120,7 +145,7 @@ for(let i = 0; i < listNo; i++){
               </div>
               <p className="name">{name}</p>
             </div>
-          ))}
+          )): <p></p>}
 
           <div className="movieList" style={{alignItems:'center'}}>
             <mui.IconButton
@@ -153,7 +178,7 @@ for(let i = 0; i < listNo; i++){
             
             <div className="content "> 
                
-              <Counter id={id} movies = {movies} stat={counts.status} likes = {counts.likes} dislikes = {counts.disLikes} />
+              <Counter id={id} movies = {movies} stat={counts.status} likes = {counts.likes} dislikes = {counts.disLikes} setMovies={setMovies} />
               {/* info button */}
                <mui.IconButton
                color="info" 
@@ -184,11 +209,10 @@ for(let i = 0; i < listNo; i++){
               color='error'
               onClick={(e)=>{
                 e.preventDefault();
-              console.log(movies.filter((data, index)=> index !== id))
-              alert(` ${name} deleted`)
-              setMovies(movies.filter((ele, index)=> id !== index))
+              deleteMovie(id)
+              alert("deleted")
+              getMovies(setMovies)
               setMovie(null)
-
               }}
               >
               <Icons.Delete/>  Delete
@@ -217,7 +241,7 @@ export const updateById = ({id, movie, setMovie, movies}) =>{
 console.log(id)
   temp[1] = temp[0] 
   temp[0] = id
-  setMovie([{...movies[id], id: id}])
+  setMovie([{...movies[id]}])
   // const preSelectedEle = document.getElementById(temp[1])
   // const currentSelection = document.getElementById(temp[0])
  
@@ -243,19 +267,24 @@ console.log(id)
 
 // Like and Dislike button
 
-export const Counter = ({likes, dislikes, id, movies, stat}) =>{
+export const Counter = ({likes, dislikes, id, movies, stat, setMovies}) =>{
   const [like, setLike] = useState(likes);
   const [disLike, setDisLike]= useState(dislikes);
   const [status, setStatus] = useState(stat); 
-  
+  let movie = movies.filter(movie=> movie.id === id)
 const LikeCount = () => {
 
   document.getElementById('likeBtn').disabled = true
   setStatus('liked')
   setLike(like + 1)
   status === 'disliked'? setDisLike(disLike-1) : setDisLike(disLike)
-  movies[id]={...movies[id], counts :{likes: like+1, disLikes : status === 'disliked'? disLike-1 : disLike , status: 'liked'}}
-  
+  movie={...movie, counts :{likes: like+1, disLikes : status === 'disliked'? disLike-1 : disLike, status : ''}}
+  fetch(`${BASE_URL}/movies/${id}`,{
+    method : "PUT",
+    body: JSON.stringify(movie),
+    headers: {"Content-Type":"application/json"}
+  })
+  getMovies(setMovies)
 }
 
 const DisLikeCount = () =>{
@@ -264,7 +293,7 @@ const DisLikeCount = () =>{
   setStatus('disliked')
   setDisLike(disLike + 1)
   status ==='liked'? setLike(like-1) : setLike(like)
-  movies[id]={...movies[id], counts :{likes: status === 'liked'? like-1 : like, disLikes : disLike+1, status: 'disliked'}}
+  movie={...movie, counts :{likes: status === 'liked'? like-1 : like, disLikes : disLike+1, status: 'disliked'}}
   
 }
 
