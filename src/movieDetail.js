@@ -58,7 +58,7 @@ function MovieDetail() {
         ];
 
   return (
-    <div>
+    <div className="App" >
       {movie !== null && movies !== null ? (
         <div id={id} className="App">
           {/* video   */}
@@ -183,6 +183,7 @@ function MovieDetail() {
                           expandIcon={<ExpandMoreIcon sx={{ margin: "0px" }} />}
                         >
                           <Typography
+                          component="div"
                             sx={{
                               width: "100%",
                               flexShrink: 0,
@@ -214,7 +215,8 @@ function MovieDetail() {
                           </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                          <Typography>
+                          <Typography
+                          component="div">
                             <div>
                               {watchOn.name ? 
                                 <p>
@@ -246,7 +248,9 @@ function MovieDetail() {
           </div>
         </div>
       ) : (
-        <div className="loader"></div>
+        <div className="load-area">
+          <div className="loader"></div>
+        </div>
       )}{" "}
     </div>
   );
