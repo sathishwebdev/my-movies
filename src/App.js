@@ -1,21 +1,18 @@
 // import logo from './logo.svg';
 import React, {createContext, useContext, useEffect, useState} from 'react'
 import './App.css';
-import movieData from './movies.json' 
 import * as mui from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import TopIcon from '@mui/icons-material/KeyboardArrowUp';
 import * as Icons from '@mui/icons-material';
 import AddMovie from './addMovie';
 import MovieDetail from './movieDetail';
-// import {Link} from 'react-router-dom'
 import { Route, Switch, useHistory, useLocation } from 'react-router'
 import NotExists from './notExists';
 import { Link } from 'react-router-dom';
 import EditMovie from './editMovie';
 import AllMovies from './allMovies';
-// import Splash from './splash'
-import { ThemeProvider, useTheme, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Box } from '@mui/system';
 import FormikForm from './formikForm';
 
@@ -23,20 +20,21 @@ export const BASE_URL = "https://6188a6b1d0821900178d742d.mockapi.io"
 
 export const context = createContext(null)
 
-const Button = mui.Button;
-var temp = ['1'] // helps us to detect and show selected data
-const getMovies = (setMovies)=>{
-  fetch(`${BASE_URL}/movies`)
-  .then(data=> data.json()).
-  then(data=> {
-    setMovies(data)
-    console.log(movieData);
+// helpers
 
+const Button = mui.Button;
+
+var temp = ['1'] // helps us to detect and show selected data
+
+ const getMovies = (setMovies)=>{
+  fetch(`${BASE_URL}/movies`)
+  .then(data=> data.json())
+  .then(data=> {
+    setMovies(data)
   })
 }
 
-
-const deleteMovie = (id) => {
+ const deleteMovie = (id) => {
   console.log(id);
   fetch(`${BASE_URL}/movies/${id}`, {
     method : "DELETE"
@@ -95,7 +93,7 @@ function App(){
         <Route exact path = '/all'>
           <AllMovies />
         </Route>
-        <Route exact path='/movie/:movieId' >
+        <Route exact path='/movie/:movieId/' >
           <MovieDetail/>
         </Route>
         <Route exact path = '/edit/:editId'>
@@ -104,7 +102,7 @@ function App(){
         <Route exact path = '/formik'>
           <FormikForm  />
         </Route>
-        <Route path="**" >
+        <Route path="*" >
          <NotExists />
         </Route>
       </Switch>
@@ -118,7 +116,7 @@ function App(){
 
 function MovieList() {
 
-const {movies, setMovies} = useContext(context)
+const {movies, setMovies} =useContext(context)
 const [show, setShow] = useState(false)
 const [movie, setMovie] = useState(null)
 let history = useHistory()
@@ -140,19 +138,18 @@ for(let i = 0; i < listNo; i++){
         <div  className="App-header">
           {
          movies?
-           HMovieList.map(({name,poster},id)=>(
-      
-            <div key={name} id={id} className="movieList">
-              <div className="posterCon" >
-                <button style={{padding:"0", border: 'none'}} onClick = {()=>updateById({id , movie, setMovie, movies})}>  
-                <img src={poster} className="poster" alt={name} title={name} />
-                </button> 
+           <>
+            { HMovieList.map(({name,poster},id)=>(
+              <div key={name} id={id} className="movieList">
+                <div className="posterCon" >
+                  <button style={{padding:"0", border: 'none'}} onClick = {()=>updateById({id , movie, setMovie, movies})}>
+                  <img src={poster} className="poster" alt={name} title={name} />
+                  </button>
+                </div>
+                <p className="name">{name}</p>
               </div>
-              <p className="name">{name}</p>
-            </div>
-          )): <p></p>}
-
-          <div className="movieList" style={{alignItems:'center'}}>
+                       ))}
+                        <div className="movieList" style={{alignItems:'center'}}>
             <mui.IconButton
             onClick={()=>history.push('/all')}
             sx={{height:"100px", width:"100px"}}
@@ -162,6 +159,13 @@ for(let i = 0; i < listNo; i++){
             </mui.IconButton>
             see all
           </div>
+           </>: <div 
+            className="load-area"
+          >
+            <div className="loader" ></div>
+          </div>}
+
+         
         </div>
       </div>
       
@@ -173,12 +177,9 @@ for(let i = 0; i < listNo; i++){
         <div key={id}>
           <h1 className="name">{name}</h1>
           <div  className="movieCon ">
-           
-            
             <div className="container">
             <Link className="App-link" to={`/movie/${id}`}>
                 <img src={poster} className="contentImg" alt={name} title="Click to watch Trailer" /> </Link>
-            {/* video   <iframe  src={`${trailer}?controls=1&autoplay=1&mute=1`} title={`${name}'s Trailer'`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="video"></iframe> */}
             </div> 
             
             <div className="content "> 
@@ -234,7 +235,7 @@ for(let i = 0; i < listNo; i++){
         </div>
       ))}
       </div>}
-      <AddMovie movies = {movies} setMovies = {setMovies}/>
+      {movies? <AddMovie movies = {movies} setMovies = {setMovies}/> : ''}
     </div>
   );
 }
@@ -242,11 +243,14 @@ for(let i = 0; i < listNo; i++){
 
 // update movie by id
 
-export const updateById = ({id, movie, setMovie, movies}) =>{
+ const updateById = ({id, movie, setMovie, movies}) =>{
 console.log(id)
   temp[1] = temp[0] 
   temp[0] = id
   setMovie([{...movies[id]}])
+
+  // style
+
   // const preSelectedEle = document.getElementById(temp[1])
   // const currentSelection = document.getElementById(temp[0])
  
@@ -272,7 +276,7 @@ console.log(id)
 
 // Like and Dislike button
 
-export const Counter = ({likes, dislikes, id, movies, stat, setMovies}) =>{
+ const Counter = ({likes, dislikes, id, movies, stat, setMovies}) =>{
   const [like, setLike] = useState(likes);
   const [disLike, setDisLike]= useState(dislikes);
   const [status, setStatus] = useState(stat); 
@@ -283,7 +287,8 @@ const LikeCount = () => {
   setStatus('liked')
   setLike(like + 1)
   status === 'disliked'? setDisLike(disLike-1) : setDisLike(disLike)
-  movie={...movie, counts :{likes: like+1, disLikes : status === 'disliked'? disLike-1 : disLike, status : ''}}
+  movie ={...movie, counts :{likes: like+1, disLikes : status === 'disliked'? disLike-1 : disLike, status : ''}}
+
   fetch(`${BASE_URL}/movies/${id}`,{
     method : "PUT",
     body: JSON.stringify(movie),
@@ -299,7 +304,12 @@ const DisLikeCount = () =>{
   setDisLike(disLike + 1)
   status ==='liked'? setLike(like-1) : setLike(like)
   movie={...movie, counts :{likes: status === 'liked'? like-1 : like, disLikes : disLike+1, status: 'disliked'}}
-  
+  fetch(`${BASE_URL}/movies/${id}`,{
+    method : "PUT",
+    body: JSON.stringify(movie),
+    headers: {"Content-Type":"application/json"}
+  })
+  getMovies(setMovies)
 }
 
   return <div>
@@ -341,12 +351,24 @@ const DisLikeCount = () =>{
   </div>
 }
 
-export const BackBtn = () =>{
+// back button
+
+ const BackBtn = () =>{
   let history = useHistory()
   return <mui.IconButton color="inherit" onClick={()=>history.goBack()} ><Icons.ArrowBackIos/> </mui.IconButton> }
 
-export const HomeBtn = () =>{
+  //  home  
+  
+  const HomeBtn = () =>{
   let history = useHistory()
   return <mui.IconButton color="inherit" onClick={()=>history.push('/')} ><Icons.Home /> </mui.IconButton> }  
 
 export default App;
+
+export {
+  HomeBtn,
+  BackBtn,
+  deleteMovie,
+  getMovies,
+  Counter
+}

@@ -1,20 +1,24 @@
-import React,{useState} from 'react'
+import React,{useContext} from 'react'
 import * as mui from '@mui/material'
 import TopIcon from '@mui/icons-material/KeyboardArrowUp';
 import {Formik} from 'formik';
+import { context } from './App';
 
 
 const Button = mui.Button , TextField = mui.TextField ;
 
-function AddMovie(props) { 
+function AddMovie() { 
       
+      let {movies} = useContext(context)
+  console.log(movies)
       const postData = (data) =>{
-        fetch("https://6188a6b1d0821900178d742d.mockapi.io/movies/", {
+        console.log(data)
+        fetch("https://6188a6b1d0821900178d742d.mockapi.io/movies", {
           method : "POST",
           body: JSON.stringify(data),
           headers: {"Content-Type":"application/json"}
 
-        })
+        }).then(response =>response.json()).then(response => console.log(response))
       }
 
       //form handlers
@@ -23,7 +27,7 @@ function AddMovie(props) {
       
         return(<div id="newMovie" style={{maxWidth:"800px", marginLeft:"auto", marginRight:"auto"}}>
        
-         <div className="TextField"> 
+         {!movies? '' : <div className="TextField"> 
           <h2 style={{width: '100%'}}>
             Add New Movie 
             <span style={{float:"right"}}> 
@@ -36,6 +40,7 @@ function AddMovie(props) {
           </h2>
           <Formik
           initialValues={{
+            id: movies.length ,
             name : '',
             poster: '',
             summary: '',
@@ -44,10 +49,12 @@ function AddMovie(props) {
             releaseDate :'',
             watchOn :{link:'', name:''},
             trailer :'',
-            counts :{likes:0, disLikes:0}
+            counts :{likes:0, disLikes:0, status:''}
           }}
-          onSubmit={({values})=>{
+          onSubmit={(values, {setSubmitting, resetForm})=>{
             postData(values)
+            setSubmitting(false);
+            resetForm()
           }}
           >
            { ({values,handleChange, handleBlur, handleSubmit})=> (
@@ -127,7 +134,7 @@ function AddMovie(props) {
            </form>
 )}  
         </Formik>
-           </div>
+           </div>}
         </div>)
       }
       

@@ -3,14 +3,14 @@ import * as mui from '@mui/material'
 import * as Icons from '@mui/icons-material';
 import { useHistory, useParams } from 'react-router';
 import './App.css'
-import { BASE_URL } from './App';
+import { BASE_URL, context } from './App';
 
 
 const Button = mui.Button , TextField = mui.TextField ;
 
 function EditMovie() { 
   const {editId} = useParams()
-
+  let {movies, setMovies} = useContext(context)
   const [movie, setMovie] = useState()
   const [formData, setFormData] = useState({
     name : '',
@@ -54,7 +54,8 @@ function EditMovie() {
       
       const handleSubmit = (e) => {
       e.preventDefault();
-        // movies[editId] = {...formData}
+        movies[editId-1] = {...formData}
+        setMovies(movies)
 
         fetch(`${BASE_URL}/movies/${editId}`, {
           method : "PUT",
