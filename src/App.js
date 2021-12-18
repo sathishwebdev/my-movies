@@ -22,6 +22,7 @@ import FormikForm from './formikForm';
 export const BASE_URL = "https://6188a6b1d0821900178d742d.mockapi.io"
 
 export const context = createContext(null)
+
 const Button = mui.Button;
 var temp = ['1'] // helps us to detect and show selected data
 const getMovies = (setMovies)=>{
@@ -34,12 +35,15 @@ const getMovies = (setMovies)=>{
   })
 }
 
+
 const deleteMovie = (id) => {
   console.log(id);
   fetch(`${BASE_URL}/movies/${id}`, {
     method : "DELETE"
   })
 }
+
+
 function App(){
   
   const [movies, setMovies] = useState(null)
@@ -59,6 +63,7 @@ function App(){
       <mui.Paper style={{ minHeight:"100vh", paddingBottom:"6px"}} elevation={2}>
     <context.Provider value = {{movies: movies, setMovies: setMovies}}>
   <div>
+    {/* nav bar */}
     <Box>
     <mui.AppBar color="warning" position="static" >
     <mui.Toolbar>
@@ -83,10 +88,10 @@ function App(){
     </mui.AppBar>
     </Box>
 
+    {/* page */}
     <div >
       <Switch>
         <Route exact path = '/' children={<MovieList  />}></Route>
-          {/* <Route path="/movies" children={}></Route> */}
         <Route exact path = '/all'>
           <AllMovies />
         </Route>
