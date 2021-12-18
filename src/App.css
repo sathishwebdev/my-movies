@@ -254,7 +254,7 @@ a {
 
 .load-area{
   height: 85vh;
-  background-color: rgba(0,0,0,0.5);
+  /* background-color: rgba(0,0,0,0.5); */
   width: 100%;
   position: absolute;
   display: flex;
